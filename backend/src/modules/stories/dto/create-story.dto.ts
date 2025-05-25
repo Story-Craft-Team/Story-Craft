@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateStoryDto {
 
@@ -20,5 +20,6 @@ export class CreateStoryDto {
     example: 'This is an amazing story about...',
     required: false,
   })
+  @IsOptional()
   description?: string;
 }

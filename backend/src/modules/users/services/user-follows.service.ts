@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { HelpersService } from 'src/modules/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 import { UserFollowResponse } from '../responses/user-follows.response';
@@ -20,7 +20,7 @@ export class UserFollowsService {
    */
   async findAllFollowers(userId: number) {
     try {
-      await this.helperService.getIdOrThrow<User>('user', userId, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: userId }, 'User');
       const follows = await this.prisma.follow.findMany({
         where: {
           followingId: userId,
@@ -63,8 +63,8 @@ export class UserFollowsService {
         throw new BadRequestException('User not authenticated');
       }
 
-      await this.helperService.getIdOrThrow<User>('user', userId, 'User');
-      await this.helperService.getIdOrThrow<User>('user', followerId, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: userId }, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: followerId }, 'User');
 
       if (userId === followerId) {
         throw new BadRequestException('You cannot follow yourself');
@@ -128,8 +128,8 @@ export class UserFollowsService {
   async unfollow(userId: number, followerId: number) {
     try {
 
-      await this.helperService.getIdOrThrow<User>('user', userId, 'User');
-      await this.helperService.getIdOrThrow<User>('user', followerId, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: userId }, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: followerId }, 'User');
       const follow = await this.prisma.follow.findUnique({
         where: {
           followerId_followingId: {

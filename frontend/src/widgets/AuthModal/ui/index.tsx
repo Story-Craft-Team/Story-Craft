@@ -3,7 +3,7 @@
 import { Modal } from "@/shared/ui";
 import React, { useEffect, useState } from "react";
 import s from "./MainModal.module.scss";
-import { useStore } from "@/shared/store";
+import { useStore } from "@/shared/stores";
 
 export default function HomeModal() {
 	const [hasUserData, setHasUserData] = useState<boolean>(false);

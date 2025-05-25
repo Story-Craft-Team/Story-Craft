@@ -14,7 +14,7 @@ import { AuthRequest } from 'src/common/types';
 import { Roles } from 'src/modules/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 
-@ApiTags('User Operations')
+@ApiTags('User - operations')
 @Controller('users/operations')
 export class UserOperationsController {
   constructor(private readonly userOperationsService: UserOperationsService) {}

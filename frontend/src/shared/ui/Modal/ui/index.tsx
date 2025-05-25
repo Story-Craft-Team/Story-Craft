@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import s from "./modalWindow.module.scss";
-import { useStore } from "@/shared/store";
+import { useStore } from "@/shared/stores";
 
 interface Props {
 	children: ReactNode;

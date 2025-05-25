@@ -2,7 +2,7 @@
 
 import React from 'react';
 import s from './Settings.module.scss'
-import { useStore } from '@/shared/store';
+import { useStore } from '@/shared/stores';
 import { useSettingsChange } from '@/shared/helpers';
 import { CustomSelect } from '@/shared/ui';
 

@@ -15,7 +15,7 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/modules/auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
 
-@ApiTags('Story')
+@ApiTags('Story - crud')
 @Controller('stories')
 export class StoryCrudController {
   constructor(private readonly storyCrudService: StoryCrudService) {}

@@ -3,7 +3,7 @@
 import { Scene } from "@/features";
 import s from "./Scenes.module.scss";
 import { useShallow } from "zustand/shallow";
-import { useStore } from "@/shared/store";
+import { useStore } from "@/shared/stores";
 
 interface SceneType {
   id: number;

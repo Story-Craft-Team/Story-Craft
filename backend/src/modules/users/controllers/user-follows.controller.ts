@@ -13,7 +13,7 @@ import { Controller } from '@nestjs/common';
 import { AuthRequest } from 'src/common/types';
 import { UserFollowResponse } from '../responses/user-follows.response';
 
-@ApiTags('User Follows')
+@ApiTags('User - follows')
 @Controller('users/follows')
 export class UserFollowsController {
   constructor(private readonly userFollowsService: UserFollowsService) {}

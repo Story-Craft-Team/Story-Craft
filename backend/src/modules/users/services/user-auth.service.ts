@@ -4,7 +4,7 @@ import {
   BadRequestException,
   ConflictException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '@prisma/client';
 import { BcryptService } from 'src/modules/bcrypt/services/bcrypt.service';
