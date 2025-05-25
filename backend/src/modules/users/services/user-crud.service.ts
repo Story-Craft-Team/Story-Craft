@@ -89,7 +89,7 @@ export class UserCrudService {
       include: USER_INCLUDE,
     });
 
-    return { user: this.userHelper.excludePassword(updatedUser) as UserWithoutPassword };
+    return { user: this.userHelper.excludePassword(updatedUser) as UserWithoutPassword};
     } catch (error) {
       throw error;
     }

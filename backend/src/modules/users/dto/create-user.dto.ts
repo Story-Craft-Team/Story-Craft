@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsString,
   IsUrl,
-  IsEnum,
   MaxLength,
   MinLength,
   ValidateNested,

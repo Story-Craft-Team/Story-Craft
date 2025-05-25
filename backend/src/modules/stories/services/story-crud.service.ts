@@ -1,9 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { Story } from '@prisma/client';
 import { CreateStoryDto } from '../dto/create-story.dto';
 import { UpdateStoryDto } from '../dto/update-story.dto';
 import { HelpersService } from 'src/modules/helpers/services/helpers.service';
+import {
+  CreateResponse,
+  DeleteResponse,
+  FindAllResponse,
+  FindOneResponse,
+  UpdateResponse,
+} from '../responses/story-crud.response';
 
 @Injectable()
 export class StoryCrudService {
@@ -12,85 +19,113 @@ export class StoryCrudService {
     private readonly helpers: HelpersService,
   ) {}
 
-  // Создание истории
+  // Create Story
   async create(
     authorId: number,
     createStoryDto: CreateStoryDto,
-  ): Promise<Story> {
+  ): Promise<CreateResponse> {
     try {
-      return this.prisma.story.create({
+
+      if (!createStoryDto.title) {
+        throw new BadRequestException('Title is required');
+      }
+      
+      const story = await this.prisma.story.create({
         data: {
           ...createStoryDto,
           authorId,
         },
       });
+      
+      return { story };
     } catch (error) {
       throw error;
     }
   }
 
-  // Получение всех историй
-  async findAll(): Promise<Story[]> {
+  // Find All Stories
+  async findAll(): Promise<FindAllResponse> {
     try {
-      return this.prisma.story.findMany();
+      const stories = await this.prisma.story.findMany();
+      return { stories };
     } catch (error) {
       throw error;
     }
   }
 
-  // Получение одной истории по ID
-  async findOne(id: number): Promise<Story> {
+  // Find One Story
+  async findOne(id: number): Promise<FindOneResponse> {
     try {
-      return this.helpers.getIdOrThrow('story', id, 'Story');
+      const story: Story = await this.helpers.getIdOrThrow(
+        'story',
+        id,
+        'Story',
+      );
+      return { story };
     } catch (error) {
       throw error;
     }
   }
 
-  // Обновление истории (без проверки авторства)
-  async update(id: number, updateStoryDto: UpdateStoryDto): Promise<Story> {
+  // Update Story
+  async update(
+    id: number,
+    updateStoryDto: UpdateStoryDto,
+  ): Promise<UpdateResponse> {
     try {
-      return this.prisma.story.update({
+      await this.helpers.getIdOrThrow('story', id, 'Story');
+
+      const updatedStory = await this.prisma.story.update({
         where: { id },
         data: updateStoryDto,
       });
+
+      return { story: updatedStory };
     } catch (error) {
       throw error;
     }
   }
 
-  // Обновление истории, принадлежащей пользователю
+  // Update My Story
   async updateMyStory(
     id: number,
     updateStoryDto: UpdateStoryDto,
-  ): Promise<Story> {
+  ): Promise<UpdateResponse> {
     await this.helpers.getIdOrThrow('story', id, 'Story');
 
     try {
-      return this.prisma.story.update({
+      const updatedStory = await this.prisma.story.update({
         where: { id },
         data: updateStoryDto,
       });
+
+      return { story: updatedStory };
     } catch (error) {
       throw error;
     }
   }
 
-  // Удаление истории (без проверки авторства)
-  async remove(id: number): Promise<Story> {
+  // Remove Story
+  async remove(id: number): Promise<DeleteResponse> {
     try {
       await this.helpers.getIdOrThrow('story', id, 'Story');
-      return this.prisma.story.delete({ where: { id } });
+
+      const deletedStory = await this.prisma.story.delete({ where: { id } });
+      
+      return { story: deletedStory };
     } catch (error) {
       throw error;
     }
   }
 
-  // Удаление истории, принадлежащей пользователю
-  async removeMyStory(id: number): Promise<Story> {
+  // Remove My Story
+  async removeMyStory(id: number): Promise<DeleteResponse> {
     try {
       await this.helpers.getIdOrThrow('story', id, 'Story');
-      return this.prisma.story.delete({ where: { id } });
+
+      const deletedStory = await this.prisma.story.delete({ where: { id } });
+
+      return { story: deletedStory };
     } catch (error) {
       throw error;
     }

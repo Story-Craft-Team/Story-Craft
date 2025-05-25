@@ -11,7 +11,7 @@ import { Param, Post, Delete, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
 import { AuthRequest } from 'src/common/types';
-import { UserFollowResponse } from '../responses/user-follows.controller';
+import { UserFollowResponse } from '../responses/user-follows.response';
 
 @ApiTags('User Follows')
 @Controller('users/follows')

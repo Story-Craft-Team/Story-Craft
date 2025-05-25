@@ -3,4 +3,3 @@ export { default as Stories } from "./Stories";
 export { default as CreateHeader } from "./CreateHeader";
 export { default as Scenes } from "./Scenes";
 export { default as AuthModal } from "./AuthModal";
-export { default as Settings } from "./Settings"

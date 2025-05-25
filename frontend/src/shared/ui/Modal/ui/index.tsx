@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from "react";
 import s from "./modalWindow.module.scss";
-import { useStore } from "@/shared/store";
 
 interface Props {
 	children: ReactNode;
@@ -8,7 +7,6 @@ interface Props {
 
 export default function Modal({ children }: Props) {
 	const [windowIsVisible, setWindowVisible] = useState<boolean>(true);
-	const theme = useStore(state => state.settings.theme)
 
 	return (
 		<div
@@ -18,7 +16,7 @@ export default function Modal({ children }: Props) {
 			}
 		>
 			<div
-				className={windowIsVisible ? theme === "dark"? s.containerVisibleDark : s.containerVisibleLight : s.containerUnVisible}
+				className={windowIsVisible ? s.containerVisible : s.containerUnVisible}
 			>
 				{children}
 			</div>

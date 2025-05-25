@@ -9,10 +9,11 @@ import {
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { UserOperationsService } from '../services/user-operations.service';
 import { Role } from '@prisma/client';
-import { Param, Body, Controller, Patch, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Patch, UseGuards, Request } from '@nestjs/common';
 import { AuthRequest } from 'src/common/types';
 import { Roles } from 'src/modules/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
+import { UpdateRole, UsersVerify } from '../responses/user-operations.response';
 
 @ApiTags('User Operations')
 @Controller('users/operations')
@@ -28,6 +29,7 @@ export class UserOperationsController {
   @ApiResponse({
     status: 200,
     description: 'User has been successfully verified.',
+    type: UsersVerify,
   })
   @ApiResponse({
     status: 404,
@@ -44,13 +46,24 @@ export class UserOperationsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Set a user role' })
   @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
-  @ApiBody({ type: () => Role })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        role: { type: 'string', enum: Object.values(Role) },
+      },
+      example: {
+        role: Role.admin,
+      },
+    },
+  })
   @ApiResponse({
     status: 200,
     description: 'User role has been successfully set.',
+    type: UpdateRole,
   })
   @ApiResponse({ status: 404, description: 'User not found' })
-  setRole(@Request() req: AuthRequest, @Body() role: Role) {
-    return this.userOperationsService.setRole(+req.user.id, role);
+  setRole(@Request() req: AuthRequest, @Body() body: { role: Role }) {
+    return this.userOperationsService.setRole(+req.user.id, body);
   }
 }

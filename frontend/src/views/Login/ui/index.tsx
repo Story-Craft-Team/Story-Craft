@@ -2,10 +2,10 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import s from "./Login.module.scss";
-import { Submit } from "@/shared/ui/Submit";
-import { CustomInput } from "@/shared/ui/CustomInput";
-import { CustomForm } from "@/shared/ui/CustomForm";
-import { useLogin } from "@/shared/helpers/auth";
+import { Submit } from "@/common/ui/Submit";
+import { CustomInput } from "@/common/ui/CustomInput";
+import { CustomForm } from "@/common/ui/CustomForm";
+import { useLogin } from "@/common/helpers/auth";
 
 export default function Login() {
 	const [username, setUsername] = useState<string>("");

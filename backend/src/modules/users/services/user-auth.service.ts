@@ -9,9 +9,13 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '@prisma/client';
 import { BcryptService } from 'src/modules/bcrypt/services/bcrypt.service';
 import { AuthService } from 'src/modules/auth/services/auth.service';
-import { UserHelperService, UserWithoutPassword } from 'src/modules/helpers/services/user-helpers.service';
+import {
+  UserHelperService,
+  UserWithoutPassword,
+} from 'src/modules/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import { LoginUserDto } from '../dto/login-user.dto';
+import { LoginResponse } from '../responses/user-auth.response';
 
 @Injectable()
 export class UserAuthService {
@@ -65,7 +69,9 @@ export class UserAuthService {
 
       return {
         accessToken: await this.authService.generateToken(createdUser),
-        user: this.userHelpers.excludePassword(createdUser) as UserWithoutPassword,
+        user: this.userHelpers.excludePassword(
+          createdUser,
+        ) as UserWithoutPassword,
       };
     } catch (error) {
       throw error;
@@ -79,7 +85,7 @@ export class UserAuthService {
    */
   async login(
     loginUserDto: LoginUserDto,
-  ): Promise<{ accessToken: string; user: UserWithoutPassword }> {
+  ): Promise<LoginResponse> {
     try {
       const user = await this.prisma.user.findUnique({
         where: { email: loginUserDto.email, username: loginUserDto.username },

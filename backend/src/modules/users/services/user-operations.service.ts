@@ -36,9 +36,11 @@ export class UserOperationsService {
     }
   }
 
-  async setRole(id: number, role: Role) {
+  async setRole(id: number, body: { role: Role }) {
     try {
       await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      
+      const role = body.role
 
       const updatedUser = await this.prisma.user.update({
         where: { id },

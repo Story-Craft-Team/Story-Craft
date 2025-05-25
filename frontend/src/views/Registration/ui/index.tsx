@@ -2,10 +2,10 @@
 
 import React, { ChangeEvent, useState } from "react";
 import s from "./Registration.module.scss";
-import { Submit } from "@/shared/ui/Submit";
-import { CustomInput } from "@/shared/ui/CustomInput";
-import { CustomForm } from "@/shared/ui/CustomForm";
-import { useRegistration } from "@/shared/helpers/auth";
+import { Submit } from "@/common/ui/Submit";
+import { CustomInput } from "@/common/ui/CustomInput";
+import { CustomForm } from "@/common/ui/CustomForm";
+import { useRegistration } from "@/common/helpers/auth";
 
 export default function Registration() {
 	const [username, setUsername] = useState<string>("");
