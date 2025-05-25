@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { HelpersService } from 'src/modules/helpers/services/helpers.service';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { Role, User } from '@prisma/client';
 import { UserHelperService } from 'src/modules/helpers/services/user-helpers.service';
 
@@ -19,7 +19,7 @@ export class UserOperationsService {
    */
   async verify(id: number) {
     try {
-      const user = await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      const user = await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
 
       if (user.isVerified) {
         throw new BadRequestException('User is already verified');
@@ -38,7 +38,7 @@ export class UserOperationsService {
 
   async setRole(id: number, body: { role: Role }) {
     try {
-      await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
 
       const role = body.role
 

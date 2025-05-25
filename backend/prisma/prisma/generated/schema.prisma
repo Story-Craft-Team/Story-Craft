@@ -70,9 +70,9 @@ model Choice {
   text      String
   nextScene Int
   access    Boolean @default(true)
-  sceneId   Int?
+  sceneId   Int
   storyId   Int
-  Scene     Scene?  @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  Scene     Scene   @relation(fields: [sceneId], references: [id], onDelete: Cascade)
   Story     Story   @relation(fields: [storyId], references: [id], onDelete: Cascade)
 }
 

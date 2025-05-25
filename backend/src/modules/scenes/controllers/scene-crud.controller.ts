@@ -26,7 +26,7 @@ export class SceneCrudController {
     type: CreateResponse,
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  createOne(@Param('storyId') storyId: string, @Body() createSceneDto: CreateSceneDto) {
+  create(@Param('storyId') storyId: string, @Body() createSceneDto: CreateSceneDto) {
     return this.sceneCrudService.create(+storyId, createSceneDto);
   }
 

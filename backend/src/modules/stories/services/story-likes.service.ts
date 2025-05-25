@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { LikeStoryResponse, UnlikeStoryResponse } from '../responses/story-likes.response';
 import { HelpersService } from 'src/modules/helpers/services/helpers.service';
 import { User, Story } from '@prisma/client';
@@ -13,8 +13,8 @@ export class StoryLikesService {
   // Like story
   async likeStory(userId: number, storyId: number): Promise<LikeStoryResponse> {
     try {
-      await this.helpers.getIdOrThrow<User>('user', userId, 'User');
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
+      await this.helpers.getEntityOrThrow<User>('user', { id: userId }, 'User');
+      await this.helpers.getEntityOrThrow<Story>('story', { id: storyId }, 'Story');
       
       const like = await this.prisma.like.create({
         data: {
@@ -31,8 +31,8 @@ export class StoryLikesService {
   // Unlike story
   async unlikeStory(userId: number, storyId: number): Promise<UnlikeStoryResponse> {
     try {
-      await this.helpers.getIdOrThrow<User>('user', userId, 'User');
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
+      await this.helpers.getEntityOrThrow<User>('user', { id: userId }, 'User');
+      await this.helpers.getEntityOrThrow<Story>('story', { id: storyId }, 'Story');
 
       const like = await this.prisma.like.delete({
         where: {

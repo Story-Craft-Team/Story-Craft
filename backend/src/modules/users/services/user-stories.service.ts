@@ -3,7 +3,7 @@ import {
   GetLikedStoriesResponse,
   GetSavedStoriesResponse,
 } from '../responses/user-stories.response';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { HelpersService } from 'src/modules/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 
@@ -15,9 +15,9 @@ export class UserStoriesService {
   ) {}
 
   // Get all stories of user
-  async getStories(userId: number): Promise<GetSavedStoriesResponse> {
+  async getSavedStories(userId: number): Promise<GetSavedStoriesResponse> {
     try {
-      await this.helpers.getIdOrThrow<User>('user', userId, 'User');
+      await this.helpers.getEntityOrThrow<User>('user', { id: userId }, 'User');
       const stories = await this.prisma.story.findMany({
         where: {
           authorId: userId,
@@ -32,7 +32,7 @@ export class UserStoriesService {
   // Get all liked stories of user
   async getLikedStories(userId: number): Promise<GetLikedStoriesResponse> {
     try {
-      await this.helpers.getIdOrThrow<User>('user', userId, 'User');
+      await this.helpers.getEntityOrThrow<User>('user', { id: userId }, 'User');
       const stories = await this.prisma.story.findMany({
         where: {
           likedBy: {

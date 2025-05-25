@@ -2,7 +2,7 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 import s from './ThemeChanger.module.scss'
-import { useStore } from '@/shared/store';
+import { useStore } from '@/shared/stores';
 
 interface Props{
     children: ReactNode

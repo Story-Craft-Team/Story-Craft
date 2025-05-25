@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { UserCrudService } from './services/user-crud.service';
 import { HelpersModule } from '../helpers/helpers.module';
-import { PrismaModule } from '../prisma/prisma.module';
+import { PrismaModule } from '../default/prisma/prisma.module';
 import { UserOperationsService } from './services/user-operations.service';
 import { UserFollowsService } from './services/user-follows.service';
 import { BcryptService } from 'src/modules/bcrypt/services/bcrypt.service';

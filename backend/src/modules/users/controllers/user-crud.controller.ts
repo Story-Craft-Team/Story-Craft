@@ -20,6 +20,7 @@ import {
 @Controller('users')
 export class UserCrudController {
   constructor(private readonly userCrudService: UserCrudService) {}
+  
   // Find all users
   @Get()
   @ApiOperation({ summary: 'Retrieve all users' })

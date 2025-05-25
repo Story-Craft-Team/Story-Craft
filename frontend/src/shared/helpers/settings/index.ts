@@ -1,4 +1,4 @@
-import { useStore } from "@/shared/store";
+import { useStore } from "@/shared/stores";
 /*
     An add-on in the form of a useSettingsChange custom hook that allows you to use the useStore hook inside the ThemeChange and LanguageChange
 */

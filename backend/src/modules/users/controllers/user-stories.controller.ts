@@ -6,12 +6,15 @@ import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthRequest } from 'src/common/types';
-import { GetSavedStoriesResponse, GetLikedStoriesResponse } from '../responses/user-stories.response';
-// edit a array of stories of user  
+import {
+  GetSavedStoriesResponse,
+  GetLikedStoriesResponse,
+} from '../responses/user-stories.response';
+
+// edit a array of stories of user
 @ApiTags('User - stories')
 @Controller('users/stories')
 export class UserStoriesController {
-
   constructor(private readonly userStoriesService: UserStoriesService) {}
 
   // Get all seved stories of user
@@ -26,7 +29,7 @@ export class UserStoriesController {
   })
   @ApiResponse({ status: 404, description: 'User not found' })
   getSavedStories(@Request() req: AuthRequest) {
-    return this.userStoriesService.getStories(+req.user.id);
+    return this.userStoriesService.getSavedStories(+req.user.id);
   }
 
   // Get all liked stories of user
@@ -34,7 +37,11 @@ export class UserStoriesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all liked stories of user' })
-  @ApiResponse({ status: 200, description: 'Stories has been successfully retrieved.', type: GetLikedStoriesResponse })
+  @ApiResponse({
+    status: 200,
+    description: 'Stories has been successfully retrieved.',
+    type: GetLikedStoriesResponse,
+  })
   @ApiResponse({ status: 404, description: 'User not found' })
   getLikedStories(@Request() req: AuthRequest) {
     return this.userStoriesService.getLikedStories(+req.user.id);

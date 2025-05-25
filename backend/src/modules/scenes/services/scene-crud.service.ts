@@ -1,4 +1,4 @@
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/default/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { CreateSceneDto } from '../dto/create-scene.dto';
 import { HelpersService } from 'src/modules/helpers/services/helpers.service';
@@ -21,7 +21,7 @@ export class SceneCrudService {
 
   async create(storyId: number, data: CreateSceneDto): Promise<CreateResponse> {
     try {
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
+      await this.helpers.getEntityOrThrow<Story>('story', { id: storyId }, 'Story');
 
       const newScene = {
         ...data,
@@ -43,8 +43,10 @@ export class SceneCrudService {
 
   async findAll(storyId: number): Promise<FindAllResponse> {
     try {
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
-      const scenes = await this.prisma.scene.findMany({ where: { storyId } });
+      const scenes = await this.helpers.getEntityOrThrow<Scene>('scene', { storyId }, 'Scene', {isArray: true});
+
+      if (!scenes) throw new Error('Scenes not found');
+
       return { scenes };
     } catch (error) {
       throw error;
@@ -53,13 +55,12 @@ export class SceneCrudService {
 
   async findOne(storyId: number, id: number): Promise<FindOneResponse> {
     try {
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
+      await this.helpers.getEntityOrThrow<Scene>('scene', { id, storyId }, 'Scene');
 
-      const scene = await this.helpers.getIdOrThrow<Scene>(
-        'scene',
-        id,
-        'Scene',
-      );
+      const scene = await this.prisma.scene.findUnique({
+        where: { id, storyId },
+      });
+      if (!scene) throw new Error('Scene not found');
 
       return { scene };
     } catch (error) {
@@ -73,11 +74,16 @@ export class SceneCrudService {
     data: UpdateSceneDto,
   ): Promise<UpdateResponse> {
     try {
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
+      await this.helpers.getEntityOrThrow<Scene>('scene', { id, storyId }, 'Scene');
 
       const cleanData = Object.fromEntries(
         Object.entries(data).filter(([_, value]) => value !== undefined),
       );
+
+      const scene = await this.prisma.scene.findUnique({
+        where: { id, storyId },
+      });
+      if (!scene) throw new Error('Scene not found');
 
       const updatedScene: Scene = await this.prisma.scene.update({
         where: { storyId, id },
@@ -94,7 +100,7 @@ export class SceneCrudService {
 
   async delete(storyId: number, id: number): Promise<DeleteResponse> {
     try {
-      await this.helpers.getIdOrThrow<Story>('story', storyId, 'Story');
+      await this.helpers.getEntityOrThrow<Scene>('scene', { id, storyId }, 'Scene');
 
       const deletedScene: Scene = await this.prisma.scene.delete({
         where: { storyId, id },

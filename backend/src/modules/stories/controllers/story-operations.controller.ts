@@ -4,7 +4,6 @@ import { Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { StoryOperationsService } from '../services/story-operations.service';
-import { GetLengthResponse } from '../responses/story-operations.response';
 import { AuthRequest } from 'src/common/types';
 
 @ApiTags('Story - operations')
@@ -13,21 +12,6 @@ export class StoryOperationsController {
   constructor(
     private readonly storyOperationsService: StoryOperationsService,
   ) {}
-
-  // Get length
-  @Get(':id/length')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get the length of stories' })
-  @ApiResponse({
-    status: 200,
-    description: 'Returns the length of stories',
-    type: GetLengthResponse,
-  })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  getLength(@Param('id') id: string) {
-    return this.storyOperationsService.getLength(+id);
-  }
 
   // Public story
   @Get(':id/public')
