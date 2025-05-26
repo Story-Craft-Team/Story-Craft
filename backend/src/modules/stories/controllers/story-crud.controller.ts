@@ -37,26 +37,18 @@ export class StoryCrudController {
 
   // Find all stories
   @Get()
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Retrieve all stories' })
   @ApiResponse({
     status: 200,
     description: 'Returns a list of stories',
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
-    description: 'No stories found',
-  })
+
   findAll() {
     return this.storyCrudService.findAll();
   }
 
   // Find one story
   @Get(':id')
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Retrieve a single story by ID' })
   @ApiParam({ name: 'id', type: 'string', description: 'Story ID' })
   @ApiResponse({

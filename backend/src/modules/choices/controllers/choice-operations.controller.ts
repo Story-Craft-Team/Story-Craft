@@ -20,7 +20,7 @@ export class ChoiceOperationsController {
   ) {}
 
   // set nextSceneId
-  @Patch('nextSceneId')
+  @Patch('next-scene-id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Update a single choice by ID' })

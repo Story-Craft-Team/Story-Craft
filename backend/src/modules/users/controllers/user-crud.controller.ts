@@ -59,6 +59,7 @@ export class UserCrudController {
   // Update
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin, Role.moderator)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an existing user' })
   @ApiParam({ name: 'id', type: 'string', description: 'User ID' })

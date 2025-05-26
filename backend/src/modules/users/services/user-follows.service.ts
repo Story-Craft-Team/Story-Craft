@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, NotFoundException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { User } from '@prisma/client';
@@ -44,9 +44,7 @@ export class UserFollowsService {
 
       return { follows: followsWithoutPassword };
     } catch (error) {
-      throw new BadRequestException(
-        `Error finding followers for user with ID ${userId}: ${error.message}`,
-      );
+      throw error;
     }
   }
 
@@ -113,9 +111,7 @@ export class UserFollowsService {
 
       return { follows: followsWithoutPassword };
     } catch (error) {
-      throw new BadRequestException(
-        `Error following user with ID ${userId} and follower ID ${followerId}: ${error.message}`,
-      );
+      throw error;
     }
   }
 
@@ -173,9 +169,7 @@ export class UserFollowsService {
 
       return { follows: followsWithoutPassword };
     } catch (error) {
-      throw new BadRequestException(
-        `Error unfollowing user with ID ${userId} and follower ID ${followerId}: ${error.message}`,
-      );
+      throw error;
     }
   }
 }

@@ -32,7 +32,7 @@ export class UserOperationsService {
 
       return this.userHelper.excludePassword(updatedUser);
     } catch (error) {
-      throw new BadRequestException('Error verifying user: ' + error.message);
+      throw error;
     }
   }
 
@@ -49,7 +49,7 @@ export class UserOperationsService {
 
       return this.userHelper.excludePassword(updatedUser);
     } catch (error) {
-      throw new BadRequestException('Error setting user role: ' + error.message);
+      throw error;
     }
   }
 }

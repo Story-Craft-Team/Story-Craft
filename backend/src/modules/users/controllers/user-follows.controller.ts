@@ -19,7 +19,7 @@ export class UserFollowsController {
   constructor(private readonly userFollowsService: UserFollowsService) {}
 
   // Find all followers
-  @Get('followers/:userId')
+  @Get(':userId')
   @ApiOperation({ summary: 'Find all followers of a user' })
   @ApiParam({ name: 'userId', type: 'number', description: 'User ID' })
   @ApiResponse({
