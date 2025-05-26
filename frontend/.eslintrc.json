@@ -1,0 +1,57 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": [
+    "import",
+    "no-restricted-imports"
+  ],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "../*",
+          "../../*",
+          "../../../*",
+          "features/*",
+          "pages/*",
+          "widgets/*",
+          "entities/*",
+          "app/*"
+        ],
+        "paths": [
+          {
+            "name": "./widgets/*/api/*",
+            "message": "Импорт из папки api запрещён."
+          },
+          {
+            "name": "./widgets/*/Header/Ui/*",
+            "message": "Импорт из Header/Ui запрещён. Используйте только публичные интерфейсы Header."
+          },
+          {
+            "name": "./widgets/*/Header/ui/Header.module.scss",
+            "message": "Импорт из Header.module.scss запрещён."
+          }
+        ]
+      }
+    ],
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/default": "error",
+    "import/namespace": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
