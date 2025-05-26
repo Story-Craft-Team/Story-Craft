@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
-import { HelpersModule } from '../helpers/helpers.module';
-import { PrismaModule } from '../default/prisma/prisma.module';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
+import { HelpersModule } from '../deffault/helpers/helpers.module';
+import { PrismaModule } from '../deffault/prisma/prisma.module';
 import { SceneCrudController } from './controllers/scene-crud.controller';
 import { SceneCrudService } from './services/scene-crud.service';
 import { SceneOperationsController } from './controllers/scene-operations.controller';

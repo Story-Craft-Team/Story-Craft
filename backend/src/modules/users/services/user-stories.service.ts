@@ -3,8 +3,8 @@ import {
   GetLikedStoriesResponse,
   GetSavedStoriesResponse,
 } from '../responses/user-stories.response';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 import { UserFollowResponse } from '../responses/user-follows.response';
-import { UserHelperService, UserWithoutPassword } from 'src/modules/helpers/services/user-helpers.service';
+import { UserHelperService, UserWithoutPassword } from 'src/modules/deffault/helpers/services/user-helpers.service';
 
 @Injectable()
 export class UserFollowsService {

@@ -1,7 +1,7 @@
 import { Controller, Patch, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthRequest } from 'src/common/types';
 import { StoryLikesService } from '../services/story-likes.service';

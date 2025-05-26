@@ -4,15 +4,15 @@ import {
   BadRequestException,
   ConflictException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '@prisma/client';
-import { BcryptService } from 'src/modules/bcrypt/services/bcrypt.service';
-import { AuthService } from 'src/modules/auth/services/auth.service';
+import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.service';
+import { AuthService } from 'src/modules/deffault/auth/services/auth.service';
 import {
   UserHelperService,
   UserWithoutPassword,
-} from 'src/modules/helpers/services/user-helpers.service';
+} from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoginResponse } from '../responses/user-auth.response';

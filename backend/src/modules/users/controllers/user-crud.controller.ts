@@ -1,13 +1,13 @@
 import { ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { Body, Delete, Get, Param, Patch, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserCrudService } from '../services/user-crud.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/modules/auth/decorators/roles.decorator';
+import { Roles } from 'src/modules/deffault/auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
 import {
   DeleteResponse,
@@ -59,7 +59,6 @@ export class UserCrudController {
   // Update
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.moderator)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an existing user' })
   @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
@@ -72,6 +71,10 @@ export class UserCrudController {
   @ApiResponse({
     status: 404,
     description: 'User not found',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Permission denied',
   })
   update(
     @Param('id') id: string,

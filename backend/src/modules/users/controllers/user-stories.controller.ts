@@ -2,7 +2,7 @@ import { Body, Controller, Param, Patch, Get, Request } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserStoriesService } from '../services/user-stories.service';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthRequest } from 'src/common/types';
@@ -18,7 +18,7 @@ export class UserStoriesController {
   constructor(private readonly userStoriesService: UserStoriesService) {}
 
   // Get all seved stories of user
-  @Get('savedStories')
+  @Get('saved')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all seved stories of user' })
@@ -33,7 +33,7 @@ export class UserStoriesController {
   }
 
   // Get all liked stories of user
-  @Get('likedStories')
+  @Get('liked')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all liked stories of user' })

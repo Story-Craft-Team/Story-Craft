@@ -3,7 +3,7 @@ import { Body, Controller, Param, UseGuards } from '@nestjs/common';
 import { StoryCrudService } from '../services/story-crud.service';
 import { Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { Delete } from '@nestjs/common';
 import { Patch } from '@nestjs/common';
 import { Post } from '@nestjs/common';
@@ -12,7 +12,7 @@ import { UpdateStoryDto } from '../dto/update-story.dto';
 import { Request } from '@nestjs/common';
 import { CreateStoryDto } from '../dto/create-story.dto';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/modules/auth/decorators/roles.decorator';
+import { Roles } from 'src/modules/deffault/auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
 
 @ApiTags('Story - crud')
