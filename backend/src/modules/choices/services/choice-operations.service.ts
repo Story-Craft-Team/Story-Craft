@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { Choice } from '@prisma/client';
 @Injectable()
 export class ChoiceOperationsService {

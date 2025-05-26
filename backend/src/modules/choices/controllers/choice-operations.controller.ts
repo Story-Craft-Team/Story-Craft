@@ -4,7 +4,7 @@ import { ChoiceOperationsService } from '../services/choice-operations.service';
 import { SetNextSceneIdResponse } from '../responses/choice-operations.response';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { ApiOperation } from '@nestjs/swagger';
 import { ApiResponse } from '@nestjs/swagger';
 import { Patch } from '@nestjs/common';
@@ -13,18 +13,18 @@ import { ApiBody } from '@nestjs/swagger';
 import { SetNextSceneIdDto } from '../dto/set-next-scene-id.dto';
 
 @ApiTags('Choice - operations')
-@Controller('stories/:storyId/scene/:sceneId/choices/:id/operations')
+@Controller('stories/:storyId/scene/:sceneId/choices/:choiceId/operations')
 export class ChoiceOperationsController {
   constructor(
     private readonly choiceOperationsService: ChoiceOperationsService,
   ) {}
 
   // set nextSceneId
-  @Patch(':id/nextSceneId')
+  @Patch('next-scene-id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Update a single choice by ID' })
-  @ApiParam({ name: 'id', type: 'string', description: 'Choice ID' })
+  @ApiParam({ name: 'choiceId', type: 'string', description: 'Choice ID' })
   @ApiBody({ type: SetNextSceneIdDto })
   @ApiResponse({
     status: 200,
@@ -39,13 +39,13 @@ export class ChoiceOperationsController {
   async setNextSceneId(
     @Param('storyId') storyId: string,
     @Param('sceneId') sceneId: string,
-    @Param('id') id: string,
+    @Param('choiceId') choiceId: string,
     @Body() body: SetNextSceneIdDto,
   ) {
     return this.choiceOperationsService.setNextSceneId(
       +storyId,
       +sceneId,
-      +id,
+      +choiceId,
       body.nextSceneId,
     );
   }

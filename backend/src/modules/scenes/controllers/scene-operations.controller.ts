@@ -1,7 +1,7 @@
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { Controller, Param, Patch, UseGuards } from "@nestjs/common";
 import { SceneOperationsService } from "../services/scene-operations.service";
-import { JwtAuthGuard } from "src/modules/auth/guards/jwt-auth.guard";
+import { JwtAuthGuard } from "src/modules/deffault/auth/guards/jwt-auth.guard";
 import { changeEndResponse } from "../responses/scene-operations.response";
 import { AuthRequest } from "src/common/types";
 import { Request } from "@nestjs/common";

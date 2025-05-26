@@ -1,13 +1,27 @@
-import { Body, Controller, Delete, Get, Post, Param, Patch } from "@nestjs/common";
-import { SceneCrudService } from "../services/scene-crud.service";
-import { ApiParam, ApiTags } from "@nestjs/swagger";
-import { UpdateSceneDto } from "../dto/update-scene.dto";
-import { CreateSceneDto } from "../dto/create-scene.dto";
-import { ApiBearerAuth } from "@nestjs/swagger";
-import { UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/modules/auth/guards/jwt-auth.guard";
-import { ApiOperation, ApiResponse, ApiBody } from "@nestjs/swagger";
-import { CreateResponse, FindAllResponse, FindOneResponse, UpdateResponse, DeleteResponse } from "../responses/scene-crud.response";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Param,
+  Patch,
+} from '@nestjs/common';
+import { SceneCrudService } from '../services/scene-crud.service';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { UpdateSceneDto } from '../dto/update-scene.dto';
+import { CreateSceneDto } from '../dto/create-scene.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
+import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import {
+  CreateResponse,
+  FindAllResponse,
+  FindOneResponse,
+  UpdateResponse,
+  DeleteResponse,
+} from '../responses/scene-crud.response';
 
 @ApiTags('Scene - crud')
 @Controller('stories/:storyId/scene')
@@ -26,7 +40,10 @@ export class SceneCrudController {
     type: CreateResponse,
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  create(@Param('storyId') storyId: string, @Body() createSceneDto: CreateSceneDto) {
+  create(
+    @Param('storyId') storyId: string,
+    @Body() createSceneDto: CreateSceneDto,
+  ) {
     return this.sceneCrudService.create(+storyId, createSceneDto);
   }
 
@@ -86,7 +103,11 @@ export class SceneCrudController {
     status: 404,
     description: 'Scene not found',
   })
-  updateOne(@Param('storyId') storyId: string, @Param('id') id: string, @Body() updateSceneDto: UpdateSceneDto) {
+  updateOne(
+    @Param('storyId') storyId: string,
+    @Param('id') id: string,
+    @Body() updateSceneDto: UpdateSceneDto,
+  ) {
     return this.sceneCrudService.update(+storyId, +id, updateSceneDto);
   }
 

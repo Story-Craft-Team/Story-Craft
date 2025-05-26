@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { PrismaClient } from '@prisma/client';
 
 /**

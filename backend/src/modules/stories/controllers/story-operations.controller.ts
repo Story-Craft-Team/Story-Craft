@@ -2,7 +2,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Param, Request, UseGuards } from '@nestjs/common';
 import { Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { StoryOperationsService } from '../services/story-operations.service';
 import { AuthRequest } from 'src/common/types';
 

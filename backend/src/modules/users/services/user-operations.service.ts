@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
-import { PrismaService } from 'src/modules/default/prisma/prisma.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { Role, User } from '@prisma/client';
-import { UserHelperService } from 'src/modules/helpers/services/user-helpers.service';
+import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 
 @Injectable()
 export class UserOperationsService {
@@ -32,7 +32,7 @@ export class UserOperationsService {
 
       return this.userHelper.excludePassword(updatedUser);
     } catch (error) {
-      throw new BadRequestException('Error verifying user: ' + error.message);
+      throw error;
     }
   }
 
@@ -49,7 +49,7 @@ export class UserOperationsService {
 
       return this.userHelper.excludePassword(updatedUser);
     } catch (error) {
-      throw new BadRequestException('Error setting user role: ' + error.message);
+      throw error;
     }
   }
 }
