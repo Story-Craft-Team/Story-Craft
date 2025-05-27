@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { UserWithoutPassword } from "src/modules/deffault/helpers/services/user-helpers.service";
+import { UserWithoutPassword } from "src/common/types/UserWithoutPassword";
 
 export class UpdateRole {
   @ApiProperty({

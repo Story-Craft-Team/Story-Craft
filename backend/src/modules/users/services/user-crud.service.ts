@@ -12,7 +12,7 @@ import {
   FindOneResponse,
   FindAllResponse,
 } from '../responses/user-crud.response';
-import { UserWithoutPassword } from 'src/modules/deffault/helpers/services/user-helpers.service';
+import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 @Injectable()
 export class UserCrudService {

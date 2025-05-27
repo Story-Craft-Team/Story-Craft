@@ -11,11 +11,11 @@ import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.servi
 import { AuthService } from 'src/modules/deffault/auth/services/auth.service';
 import {
   UserHelperService,
-  UserWithoutPassword,
 } from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoginResponse } from '../responses/user-auth.response';
+import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 @Injectable()
 export class UserAuthService {

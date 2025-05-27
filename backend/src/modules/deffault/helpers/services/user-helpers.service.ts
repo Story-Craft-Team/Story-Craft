@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-
-export type UserWithoutPassword = Omit<User, 'password'>; // вынести
+import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 @Injectable()
 export class UserHelperService {

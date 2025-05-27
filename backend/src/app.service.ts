@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { HealthRes } from './common/types';
+
+export interface HealthResponse {
+  response: number;
+  status: string;
+}
 
 @Injectable()
 export class AppService {
-  health(): HealthRes {
+  health(): HealthResponse {
     try {
-      return { response: 200, status: "all good" };
+      return { response: 200, status: 'all good' };
     } catch (error) {
-      return { response: 500, status: 'Error on server' };
+      throw error;
     }
   }
 }
-
-// перенести респонс по структуре
