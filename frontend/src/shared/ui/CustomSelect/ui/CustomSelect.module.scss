@@ -1,0 +1,96 @@
+.customSelectWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.ClosedCustomSelect {
+  padding: 8px 12px;
+  background-color: #252526;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s;
+  box-sizing: border-box;
+
+  &:hover, :focus {
+    border-width: 0 0 0 5px;
+    border-style: solid;
+    border-color: #0d8ea8;
+    background-color: rgba(128, 222, 234, 0.3);
+  }
+}
+
+.OpenedCustomSelect{
+  padding: 8px 12px;
+  background-color: #252526;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  border-width: 0 0 0 5px;
+  border-style: solid;
+  border-color: #0d8ea8;
+  background-color: rgba(128, 222, 234, 0.3);
+}
+
+.customOptions {
+  position: absolute;
+  top: 100%;
+  left: 5;
+  right: 0;
+  background-color: #252526;
+  border: 1px solid #252526;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  z-index: 100;
+  max-height: 200px;
+}
+
+.enabledCustomOption {
+  padding: 8px 12px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #005f73;
+  }
+}
+
+.disabledCustomOption {
+  padding: 8px 12px;
+  color: white;
+}
+
+.arrow {
+  animation: arrow 0.2s 1 linear;
+  animation-fill-mode: forwards;  
+}
+
+.openArrow{
+    animation: OpenArrow 0.2s 1 linear;
+    animation-fill-mode: forwards;  
+}
+
+@keyframes arrow {
+    from{
+        transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes OpenArrow {
+    from{
+        transform: rotate(180deg)
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

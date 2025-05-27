@@ -1,9 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
+import { BadRequestException, NotFoundException, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 import { UserFollowResponse } from '../responses/user-follows.response';
-import { UserHelperService, UserWithoutPassword } from 'src/modules/helpers/services/user-helpers.service';
+import { UserHelperService, UserWithoutPassword } from 'src/modules/deffault/helpers/services/user-helpers.service';
 
 @Injectable()
 export class UserFollowsService {
@@ -20,7 +20,7 @@ export class UserFollowsService {
    */
   async findAllFollowers(userId: number) {
     try {
-      await this.helperService.getIdOrThrow<User>('user', userId, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: userId }, 'User');
       const follows = await this.prisma.follow.findMany({
         where: {
           followingId: userId,
@@ -44,9 +44,7 @@ export class UserFollowsService {
 
       return { follows: followsWithoutPassword };
     } catch (error) {
-      throw new BadRequestException(
-        `Error finding followers for user with ID ${userId}: ${error.message}`,
-      );
+      throw error;
     }
   }
 
@@ -63,8 +61,8 @@ export class UserFollowsService {
         throw new BadRequestException('User not authenticated');
       }
 
-      await this.helperService.getIdOrThrow<User>('user', userId, 'User');
-      await this.helperService.getIdOrThrow<User>('user', followerId, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: userId }, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: followerId }, 'User');
 
       if (userId === followerId) {
         throw new BadRequestException('You cannot follow yourself');
@@ -113,9 +111,7 @@ export class UserFollowsService {
 
       return { follows: followsWithoutPassword };
     } catch (error) {
-      throw new BadRequestException(
-        `Error following user with ID ${userId} and follower ID ${followerId}: ${error.message}`,
-      );
+      throw error;
     }
   }
 
@@ -128,8 +124,8 @@ export class UserFollowsService {
   async unfollow(userId: number, followerId: number) {
     try {
 
-      await this.helperService.getIdOrThrow<User>('user', userId, 'User');
-      await this.helperService.getIdOrThrow<User>('user', followerId, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: userId }, 'User');
+      await this.helperService.getEntityOrThrow<User>('user', { id: followerId }, 'User');
       const follow = await this.prisma.follow.findUnique({
         where: {
           followerId_followingId: {
@@ -173,9 +169,7 @@ export class UserFollowsService {
 
       return { follows: followsWithoutPassword };
     } catch (error) {
-      throw new BadRequestException(
-        `Error unfollowing user with ID ${userId} and follower ID ${followerId}: ${error.message}`,
-      );
+      throw error;
     }
   }
 }

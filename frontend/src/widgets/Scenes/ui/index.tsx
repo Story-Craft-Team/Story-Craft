@@ -3,7 +3,7 @@
 import { Scene } from "@/features";
 import s from "./Scenes.module.scss";
 import { useShallow } from "zustand/shallow";
-import { useStore } from "@/common/store";
+import { useStore } from "@/shared/store";
 
 export default function Scenes() {
 	const { scenes, addNewScene } = useStore(useShallow((state) => state));
@@ -14,7 +14,7 @@ export default function Scenes() {
 
 	return (
 		<div className={s.scenes}>
-			{scenes.map((scene) => (
+			{scenes.map((scene: any) => (
 				<Scene key={scene.id} id={scene.id} />
 			))}
 			<button onClick={addSceneSubmit} className={s.add_scene}>

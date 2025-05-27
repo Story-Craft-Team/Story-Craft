@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { Story } from '@prisma/client';
 import { CreateStoryDto } from '../dto/create-story.dto';
 import { UpdateStoryDto } from '../dto/update-story.dto';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import {
   CreateResponse,
   DeleteResponse,
@@ -56,9 +56,9 @@ export class StoryCrudService {
   // Find One Story
   async findOne(id: number): Promise<FindOneResponse> {
     try {
-      const story: Story = await this.helpers.getIdOrThrow(
+      const story: Story = await this.helpers.getEntityOrThrow(
         'story',
-        id,
+        { id },
         'Story',
       );
       return { story };
@@ -73,7 +73,7 @@ export class StoryCrudService {
     updateStoryDto: UpdateStoryDto,
   ): Promise<UpdateResponse> {
     try {
-      await this.helpers.getIdOrThrow('story', id, 'Story');
+      await this.helpers.getEntityOrThrow('story', { id }, 'Story');
 
       const updatedStory = await this.prisma.story.update({
         where: { id },
@@ -91,7 +91,7 @@ export class StoryCrudService {
     id: number,
     updateStoryDto: UpdateStoryDto,
   ): Promise<UpdateResponse> {
-    await this.helpers.getIdOrThrow('story', id, 'Story');
+    await this.helpers.getEntityOrThrow('story', { id }, 'Story');
 
     try {
       const updatedStory = await this.prisma.story.update({
@@ -108,7 +108,7 @@ export class StoryCrudService {
   // Remove Story
   async remove(id: number): Promise<DeleteResponse> {
     try {
-      await this.helpers.getIdOrThrow('story', id, 'Story');
+      await this.helpers.getEntityOrThrow('story', { id }, 'Story');
 
       const deletedStory = await this.prisma.story.delete({ where: { id } });
       
@@ -121,7 +121,7 @@ export class StoryCrudService {
   // Remove My Story
   async removeMyStory(id: number): Promise<DeleteResponse> {
     try {
-      await this.helpers.getIdOrThrow('story', id, 'Story');
+      await this.helpers.getEntityOrThrow('story', { id }, 'Story');
 
       const deletedStory = await this.prisma.story.delete({ where: { id } });
 

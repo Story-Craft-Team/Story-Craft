@@ -1,10 +1,10 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { Prisma, User } from '@prisma/client';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
-import { BcryptService } from 'src/modules/bcrypt/services/bcrypt.service';
-import { UserHelperService } from 'src/modules/helpers/services/user-helpers.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
+import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.service';
+import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import {
   DeleteResponse,
@@ -12,7 +12,7 @@ import {
   FindOneResponse,
   FindAllResponse,
 } from '../responses/user-crud.response';
-import { UserWithoutPassword } from 'src/modules/helpers/services/user-helpers.service';
+import { UserWithoutPassword } from 'src/modules/deffault/helpers/services/user-helpers.service';
 
 @Injectable()
 export class UserCrudService {
@@ -45,7 +45,7 @@ export class UserCrudService {
    */
   async findOne(id: number): Promise<FindOneResponse> {
     try {
-      const user = await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      const user = await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
       return { user: this.userHelper.excludePassword(user) as UserWithoutPassword };
     } catch (error) {
       throw error;
@@ -60,7 +60,7 @@ export class UserCrudService {
    */
   async update(id: number, dto: UpdateUserDto): Promise<UpdateResponse> {
     try {
-      await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
 
       const { settings, password, ...rest } = dto;
 
@@ -102,11 +102,11 @@ export class UserCrudService {
    */
   async remove(id: number): Promise<DeleteResponse> {
     try {
-      await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
       await this.prisma.user.delete({ where: { id } });
       return { status: 200, message: 'User removed successfully' };
     } catch (error) {
-      throw new BadRequestException('Error removing user: ' + error.message);
+      throw error;
     }
   }
 }

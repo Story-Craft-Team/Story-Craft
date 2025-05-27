@@ -1,1 +1,1 @@
-export { default as Submit } from "./ui";
+export { default } from "./ui";

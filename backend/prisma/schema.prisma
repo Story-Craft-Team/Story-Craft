@@ -8,22 +8,48 @@ datasource db {
 }
 
 model User {
-  id              Int           @id @default(autoincrement())
-  username        String        @unique
-  email           String        @unique
-  role            Role          @default(reader)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  isVerified      Boolean       @default(false)
-  displayName     String?
-  bio             String?
-  avatarUrl       String?
-  password        String
-  stories         Story[]       @relation("UserStories")
-  settings        UserSettings?
-  favoriteStories Story[]       @relation("UserFavoriteStories")
-  followedUsers   Follow[]      @relation("UserFollowing")
-  followingUsers  Follow[]      @relation("UserFollowed")
+  id             Int           @id @default(autoincrement())
+  username       String        @unique
+  email          String        @unique
+  role           Role          @default(reader)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  isVerified     Boolean       @default(false)
+  displayName    String?
+  bio            String?
+  avatarUrl      String?
+  password       String
+  stories        Story[]       @relation("UserStories")
+  settings       UserSettings?
+  followedUsers  Follow[]      @relation("UserFollowing")
+  followingUsers Follow[]      @relation("UserFollowed")
+  likedStories   Like[]        @relation("UserLikes")
+}
+
+model Story {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  image       String?
+  authorId    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isPublic    Boolean  @default(false)
+  scenes      Scene[]
+  choices     Choice[]
+  author      User     @relation("UserStories", fields: [authorId], references: [id], onDelete: Cascade)
+  likedBy     Like[]   @relation("StoryLikes")
+}
+
+model Like {
+  id      Int @id @default(autoincrement())
+  userId  Int
+  storyId Int
+
+  user  User  @relation("UserLikes", fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation("StoryLikes", fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, storyId])
 }
 
 model Follow {
@@ -35,21 +61,6 @@ model Follow {
   followingUser User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
-}
-
-model Story {
-  id           Int      @id @default(autoincrement())
-  title        String
-  description  String?
-  image        String?
-  authorId     Int      
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  isPublic     Boolean  @default(false)
-  choices      Choice[]
-  scenes       Scene[]
-  author       User     @relation("UserStories", fields: [authorId], references: [id], onDelete: Cascade)
-  isFavoriteBy User[]   @relation("UserFavoriteStories")
 }
 
 model Scene {
@@ -65,19 +76,19 @@ model Scene {
 }
 
 model Choice {
-  id        Int     @id @default(autoincrement())
-  text      String
-  nextScene Int
-  access    Boolean @default(true)
-  sceneId   Int?
-  storyId   Int
-  Scene     Scene?  @relation(fields: [sceneId], references: [id], onDelete: Cascade)
-  Story     Story   @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  id          Int     @id @default(autoincrement())
+  text        String
+  nextSceneId Int
+  access      Boolean @default(true)
+  sceneId     Int?
+  storyId     Int
+  Scene       Scene?  @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  Story       Story   @relation(fields: [storyId], references: [id])
 }
 
 model UserSettings {
   theme    String @default("dark")
-  language String @default("en")
+  language String @default("ru")
   userId   Int    @unique
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

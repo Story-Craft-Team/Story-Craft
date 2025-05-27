@@ -6,10 +6,9 @@ import { Body } from '@nestjs/common';
 import { UserAuthService } from '../services/user-auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { RegisterResponse, LoginResponse } from '../responses/user-auth.response';
 
-@ApiTags('User auth')
+@ApiTags('User - auth')
 @Controller('users/auth')
 export class UserAuthController {
   constructor(private readonly userAuthService: UserAuthService) {}
@@ -26,7 +25,7 @@ export class UserAuthController {
     status: 409,
     description: 'This user already exists',
   })
-  register(@Body() createUserDto: CreateUserDto): Promise<{ accessToken: string; user: Omit<User, 'password'> }> {
+  register(@Body() createUserDto: CreateUserDto): Promise<RegisterResponse> {
     return this.userAuthService.register(createUserDto);
   }
 
@@ -45,7 +44,7 @@ export class UserAuthController {
     status: 401,
     description: 'Invalid credentials',
   })
-  login(@Body() loginUserDto: LoginUserDto): Promise<{ accessToken: string; user: Omit<User, 'password'> }> {
+  login(@Body() loginUserDto: LoginUserDto): Promise<LoginResponse> {
     return this.userAuthService.login(loginUserDto);
   }
 }

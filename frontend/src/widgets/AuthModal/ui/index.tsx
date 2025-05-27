@@ -1,8 +1,9 @@
 "use client";
 
-import { Modal } from "@/common/ui/Modal";
+import { Modal } from "@/shared/ui/Modal";
 import React, { useEffect, useState } from "react";
 import s from "./MainModal.module.scss";
+import { useStore } from "@/shared/store";
 
 export default function HomeModal() {
 	const [hasUserData, setHasUserData] = useState<boolean>(false);

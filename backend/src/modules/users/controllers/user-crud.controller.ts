@@ -1,13 +1,13 @@
 import { ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { Body, Delete, Get, Param, Patch, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserCrudService } from '../services/user-crud.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/modules/auth/decorators/roles.decorator';
+import { Roles } from 'src/modules/deffault/auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
 import {
   DeleteResponse,
@@ -16,10 +16,11 @@ import {
   FindAllResponse,
 } from '../responses/user-crud.response';
 
-@ApiTags('User')
+@ApiTags('User - crud')
 @Controller('users')
 export class UserCrudController {
   constructor(private readonly userCrudService: UserCrudService) {}
+  
   // Find all users
   @Get()
   @ApiOperation({ summary: 'Retrieve all users' })
@@ -71,6 +72,10 @@ export class UserCrudController {
   @ApiResponse({
     status: 404,
     description: 'User not found',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Permission denied',
   })
   update(
     @Param('id') id: string,
