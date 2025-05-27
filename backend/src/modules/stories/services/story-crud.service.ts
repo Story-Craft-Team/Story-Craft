@@ -75,10 +75,26 @@ export class StoryCrudService {
     try {
       await this.helpers.getEntityOrThrow('story', { id }, 'Story');
 
+      if (Object.keys(updateStoryDto).length === 0) {
+        throw new BadRequestException('No data to update');
+      }
+
       const updatedStory = await this.prisma.story.update({
         where: { id },
-        data: updateStoryDto,
-      });
+        data: {
+          ...updateStoryDto,
+          scenes: {
+            deleteMany: {
+              storyId: id,
+            },
+          },
+          choices: {
+            deleteMany: {
+              storyId: id,
+            },
+          },
+        },
+      }); // TODO: Refactor
 
       return { story: updatedStory };
     } catch (error) {
@@ -88,16 +104,37 @@ export class StoryCrudService {
 
   // Update My Story
   async updateMyStory(
+    authorId: number,
     id: number,
     updateStoryDto: UpdateStoryDto,
   ): Promise<UpdateResponse> {
-    await this.helpers.getEntityOrThrow('story', { id }, 'Story');
+    const story: Story = await this.helpers.getEntityOrThrow('story', { id }, 'Story');
+
+    if (Object.keys(updateStoryDto).length === 0) {
+      throw new BadRequestException('No data to update');
+    }
+
+    if (story.authorId !== authorId) {
+      throw new BadRequestException('You are not the author of this story');
+    }
 
     try {
       const updatedStory = await this.prisma.story.update({
         where: { id },
-        data: updateStoryDto,
-      });
+        data: {
+          ...updateStoryDto,
+          scenes: {
+            deleteMany: {
+              storyId: id,
+            },
+          },
+          choices: {
+            deleteMany: {
+              storyId: id,
+            },
+          },
+        },
+      }); // TODO: Refactor
 
       return { story: updatedStory };
     } catch (error) {
@@ -119,9 +156,13 @@ export class StoryCrudService {
   }
 
   // Remove My Story
-  async removeMyStory(id: number): Promise<DeleteResponse> {
+  async removeMyStory(authorId: number, id: number): Promise<DeleteResponse> {
     try {
-      await this.helpers.getEntityOrThrow('story', { id }, 'Story');
+      const story: Story = await this.helpers.getEntityOrThrow('story', { id }, 'Story');
+
+      if (story.authorId !== authorId) {
+        throw new BadRequestException('You are not the author of this story');
+      }
 
       const deletedStory = await this.prisma.story.delete({ where: { id } });
 

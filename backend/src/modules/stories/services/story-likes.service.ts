@@ -10,6 +10,21 @@ export class StoryLikesService {
     private readonly helpers: HelpersService
   ) {}
 
+  // Get likes of the story
+  async getLikes(storyId: number): Promise<number> {
+    try {
+      await this.helpers.getEntityOrThrow<Story>('story', { id: storyId }, 'Story');
+      const likes = await this.prisma.like.count({
+        where: {
+          storyId,
+        },
+      });
+      return likes;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   // Like story
   async likeStory(userId: number, storyId: number): Promise<LikeStoryResponse> {
     try {

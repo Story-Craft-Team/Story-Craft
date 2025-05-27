@@ -1,4 +1,4 @@
-import { Controller, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Patch, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
@@ -17,8 +17,24 @@ import {
 export class StoryLikesController {
   constructor(private readonly storyLikesService: StoryLikesService) {}
 
+  // Get likes of the story
+  @Get(':storyId')
+  @ApiOperation({ summary: 'Get likes of the story' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns likes of the story',
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({
+    status: 404,
+    description: 'Story not found',
+  })
+  getLikes(@Param('storyId') storyId: number) {
+    return this.storyLikesService.getLikes(storyId);
+  }
+
   // Like story
-  @Patch(':storyId/like')
+  @Patch('like/:storyId')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Like a story' })
@@ -33,7 +49,7 @@ export class StoryLikesController {
   }
 
   // Unlike story
-  @Patch(':storyId/unlike')
+  @Patch('unlike/:storyId')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Unlike a story' })
