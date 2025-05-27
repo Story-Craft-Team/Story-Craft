@@ -1,8 +1,8 @@
 "use client";
 import { SceneCard } from "@/entities";
-import { useStore } from "@/shared/store";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./StoryEditor.module.scss";
+import { useStore } from "@/shared/stores";
 
 export default function StoryEditor() {
   const { scenes, addNewScene, setIsPublic, isPublic } = useStore(

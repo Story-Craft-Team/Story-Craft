@@ -1,8 +1,8 @@
 "use client";
 
-import { useStore } from "@/shared/store";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./StoryHeader.module.scss";
+import { useStore } from "@/shared/stores";
 
 type Mode = "editor" | "read";
 

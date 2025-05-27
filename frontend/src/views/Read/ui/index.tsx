@@ -1,6 +1,6 @@
 "use client";
 import { StoryHeader } from "@/entities";
-import { useStore } from "@/shared/store";
+import { useStore } from "@/shared/stores";
 
 export default function ReadPage() {
   const title = useStore((state) => state.title);
@@ -15,7 +15,7 @@ export default function ReadPage() {
 
   return (
     <>
-      <StoryHeader title={title} sceneCount={sceneCount} />
+      <StoryHeader  mode="editor" />
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { HelpersService } from 'src/modules/helpers/services/helpers.service';
-import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
+import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { Role, User } from '@prisma/client';
-import { UserHelperService } from 'src/modules/helpers/services/user-helpers.service';
+import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 
 @Injectable()
 export class UserOperationsService {
@@ -19,7 +19,7 @@ export class UserOperationsService {
    */
   async verify(id: number) {
     try {
-      const user = await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      const user = await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
 
       if (user.isVerified) {
         throw new BadRequestException('User is already verified');
@@ -32,13 +32,13 @@ export class UserOperationsService {
 
       return this.userHelper.excludePassword(updatedUser);
     } catch (error) {
-      throw new BadRequestException('Error verifying user: ' + error.message);
+      throw error;
     }
   }
 
   async setRole(id: number, body: { role: Role }) {
     try {
-      await this.helpers.getIdOrThrow<User>('user', id, 'User');
+      await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
 
       const role = body.role
 
@@ -49,7 +49,7 @@ export class UserOperationsService {
 
       return this.userHelper.excludePassword(updatedUser);
     } catch (error) {
-      throw new BadRequestException('Error setting user role: ' + error.message);
+      throw error;
     }
   }
 }

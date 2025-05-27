@@ -1,6 +1,6 @@
-import { useStore } from "@/shared/store";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./RemoveSceneButton.module.scss";
+import { useStore } from "@/shared/stores";
 
 export default function RemoveSceneButton({ sceneId }: { sceneId: number }) {
   const { removeScene } = useStore(

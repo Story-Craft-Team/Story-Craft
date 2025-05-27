@@ -1,10 +1,10 @@
 "use client";
 import { IChoice, IScene } from "@/shared/lib/types";
-import { useStore } from "@/shared/store";
 import { CustomCheckbox } from "@/shared/ui";
 import { FaCheck } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./ChoiceCard.module.scss";
+import { useStore } from "@/shared/stores";
 
 interface ChoiceCardProps {
   scene: IScene;
@@ -46,9 +46,9 @@ const ChoiceCard = ({ scene, choice, index }: ChoiceCardProps) => {
         >
           <option value={0}>Выберите следующую сцену</option>
           {scenes
-            .filter((s) => s.id !== scene.id)
-            .map((s) => {
-              const sceneIndex = scenes.findIndex((sc) => sc.id === s.id);
+            .filter((s: any) => s.id !== scene.id)
+            .map((s: any) => {
+              const sceneIndex = scenes.findIndex((sc: any) => sc.id === s.id);
               return (
                 <option key={s.id} value={s.id}>
                   {s.title || `Сцена ${sceneIndex + 1}`}
@@ -68,3 +68,4 @@ const ChoiceCard = ({ scene, choice, index }: ChoiceCardProps) => {
 };
 
 export default ChoiceCard;
+// TODO any вынести типы

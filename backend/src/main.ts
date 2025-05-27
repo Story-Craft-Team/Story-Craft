@@ -24,7 +24,6 @@ async function bootstrap() {
     // Create and configure Swagger
     const swaggerConfig = createSwaggerConfig();
     const document = SwaggerModule.createDocument(app, swaggerConfig, {
-      extraModels: [], // Add any extra models here if needed
       deepScanRoutes: true,
       ignoreGlobalPrefix: true,
     });

@@ -2,7 +2,6 @@
 
 import { ChoiceCard } from "@/entities";
 import { IScene } from "@/shared/lib/types";
-import { useStore } from "@/shared/store";
 import {
   AddChoiceButton,
   CustomCheckbox,
@@ -11,6 +10,7 @@ import {
 import { FaCheck } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./SceneCard.module.scss";
+import { useStore } from "@/shared/stores";
 
 interface SceneProps {
   scene: IScene;
