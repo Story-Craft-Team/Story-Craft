@@ -1,28 +1,29 @@
-.darkTheme{
-    background-color: black;
-    width: 100%;
-    height: 100%;
-    color: white;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
+.darkTheme {
+  background-color: #1a1a1a;    
+  width: 100%;
+  height: 100%;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
 }
-.lightTheme{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
+.lightTheme {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
 }
-.container{
-    width: 1200px;
+.container {
+  width: 1200px;
 }
-.darkTheme, .lightTheme {
+.darkTheme,
+.lightTheme {
   overflow: auto;
 }

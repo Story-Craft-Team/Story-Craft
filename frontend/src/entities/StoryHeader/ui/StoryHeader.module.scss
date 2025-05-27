@@ -1,0 +1,87 @@
+.container {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 1rem 0.6rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  min-width: 56rem;
+  margin-bottom: .4rem;
+
+}
+
+.label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #ff5722;
+  font-size: 1.4rem;
+  
+}
+
+.titleInput {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #f0f0f0;
+  
+}
+
+.titleInput:focus,
+.description:focus {
+  outline: 2px solid #ff5722;
+  outline-offset: 2px;
+}
+
+.titleText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff5722; /* оранжевый акцент */
+  margin: 0;
+}
+
+.sceneCount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff5722; /* оранжевый акцент */
+  white-space: nowrap;
+  margin-bottom: 0.7rem;
+  padding-right: 2rem;
+}
+
+.sceneCount_read {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ff5722; /* оранжевый акцент */
+  white-space: nowrap;
+  margin-bottom: 0rem;
+  padding-right: 2rem;
+}
+
+
+.description {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.3rem;
+  resize: vertical;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f0f0f0;
+}

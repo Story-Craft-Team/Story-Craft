@@ -1,0 +1,24 @@
+
+
+.removeButton {
+  width: 20%;
+  background: #ff5722;
+  color: white;
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeButton:focus,
+.select:focus {
+  outline: 2px solid #ff5722; /* оранжевый */
+  outline-offset: 2px;
+}
