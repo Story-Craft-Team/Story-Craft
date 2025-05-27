@@ -10,8 +10,6 @@ import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { UserOperationsService } from '../services/user-operations.service';
 import { Role } from '@prisma/client';
 import { Body, Controller, Patch, UseGuards, Request, Param } from '@nestjs/common';
-import { AuthRequest } from 'src/common/types';
-import { Roles } from 'src/modules/deffault/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UpdateRole, UsersVerify } from '../responses/user-operations.response';
 

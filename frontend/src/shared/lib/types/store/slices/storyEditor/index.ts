@@ -1,4 +1,4 @@
-import { type IStoryEditor } from "@/common/lib/types";
+import { type IStoryEditor } from "@/shared/lib/types";
 
 type StoryEditorAction = {
 	setTitle: (title: IStoryEditor["title"]) => void;

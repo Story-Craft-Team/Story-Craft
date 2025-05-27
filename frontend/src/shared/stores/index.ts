@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 
 import { authSlice } from "./slices";
 import { storyEditorSlice } from "./slices/storyEditor";
-import { Store } from "@/common/lib/types";
+import { Store } from "@/shared/lib/types";
 
 export const useStore = create<Store>()(
 	devtools(

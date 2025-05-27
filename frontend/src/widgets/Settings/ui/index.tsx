@@ -21,7 +21,7 @@ export default function Settings(){
             <hr/>
             <h3>Тема интерфейса</h3>
             <CustomSelect 
-                onChange={(value: string) => ThemeChange(value)} 
+                onChange={(value: string) => ThemeChange(value as 'light' | 'dark')} 
                 options={[{content: "Темная", value: "dark", disabled: false}, {content: "Светлая (в разработке)", value: "light", disabled: true}]}
                 defaultValue={theme === "dark"? {content: "Темная", value: "dark", disabled: false}:  {content: "Светлая", value: "light", disabled: true}}
             />

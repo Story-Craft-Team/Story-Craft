@@ -2,9 +2,9 @@
 
 import React, { ChangeEvent, useState } from "react";
 import s from "./Registration.module.scss";
-import { Submit } from "@/shared/ui/Submit";
-import { CustomInput } from "@/shared/ui/CustomInput";
-import { CustomForm } from "@/shared/ui/CustomForm";
+import { Submit } from "@/shared/ui";
+import { CustomInput } from "@/shared/ui";
+import { CustomForm } from "@/shared/ui";
 import { useRegistration } from "@/shared/helpers/auth";
 
 export default function Registration() {

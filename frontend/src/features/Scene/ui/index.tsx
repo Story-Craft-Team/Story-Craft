@@ -4,7 +4,7 @@ import TextInput from "@/entities/TextInput/ui";
 import s from "./Scene.module.scss";
 import { ChoiceInput } from "@/entities";
 import { useState } from "react";
-import { MAX_NUM_CHOICES } from "@/common/lib/constants";
+import { MAX_NUM_CHOICES } from "@/shared/lib/constants";
 
 interface Props {
 	id: number;
