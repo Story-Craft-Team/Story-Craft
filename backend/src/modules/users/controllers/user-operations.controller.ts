@@ -13,6 +13,7 @@ import { Body, Controller, Patch, UseGuards, Request, Param } from '@nestjs/comm
 import { AuthRequest } from 'src/common/types';
 import { Roles } from 'src/modules/deffault/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
+import { UpdateRole, UsersVerify } from '../responses/user-operations.response';
 
 @ApiTags('User - operations')
 @Controller('users/operations')
@@ -28,6 +29,7 @@ export class UserOperationsController {
   @ApiResponse({
     status: 200,
     description: 'User has been successfully verified.',
+    type: UsersVerify
   })
   @ApiResponse({
     status: 404,
@@ -58,7 +60,7 @@ export class UserOperationsController {
   @ApiResponse({
     status: 200,
     description: 'User role has been successfully set.',
-    type: () => Role,
+    type: UpdateRole
   })
   @ApiResponse({ status: 404, description: 'User not found' })
   setRole(@Param('id') id: string, @Body() body: { role: Role }) {

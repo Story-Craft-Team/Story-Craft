@@ -24,6 +24,9 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.27.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-no-restricted-imports": "^0.0.0",
     "pretty-quick": "^4.1.1",
     "simple-git-hooks": "^2.13.0",
     "typescript": "^5"
