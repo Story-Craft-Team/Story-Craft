@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '@prisma/client';
+import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 export class RegisterResponse {
   @ApiProperty({
@@ -24,7 +25,7 @@ export class RegisterResponse {
       },
     },
   })
-  user: Omit<User, 'password'>;
+  user: UserWithoutPassword;
 }
 
 export class LoginResponse {
@@ -50,5 +51,5 @@ export class LoginResponse {
       },
     },
   })
-  user: Omit<User, 'password'>;
+  user: UserWithoutPassword;
 }

@@ -3,7 +3,8 @@ import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 import { UserFollowResponse } from '../responses/user-follows.response';
-import { UserHelperService, UserWithoutPassword } from 'src/modules/deffault/helpers/services/user-helpers.service';
+import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
+import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 @Injectable()
 export class UserFollowsService {
