@@ -11,6 +11,7 @@ import {
   LikeStoryResponse,
   UnlikeStoryResponse,
 } from '../responses/story-likes.response';
+import { Like } from '@prisma/client';
 
 @ApiTags('Story - likes')
 @Controller('stories/likes')
@@ -29,8 +30,8 @@ export class StoryLikesController {
     status: 404,
     description: 'Story not found',
   })
-  getLikes(@Param('storyId') storyId: number) {
-    return this.storyLikesService.getLikes(storyId);
+  getLikes(@Param('storyId') storyId: string): Promise<{ likes: Like[] }> {
+    return this.storyLikesService.getLikes(+storyId);
   }
 
   // Like story
@@ -44,8 +45,8 @@ export class StoryLikesController {
     type: LikeStoryResponse,
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  likeStory(@Request() req: AuthRequest, @Param('storyId') storyId: number) {
-    return this.storyLikesService.likeStory(+req.user.id, storyId);
+  likeStory(@Request() req: AuthRequest, @Param('storyId') storyId: string) {
+    return this.storyLikesService.likeStory(+req.user.id, +storyId);
   }
 
   // Unlike story
@@ -59,7 +60,7 @@ export class StoryLikesController {
     type: UnlikeStoryResponse,
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  unlikeStory(@Request() req: AuthRequest, @Param('storyId') storyId: number) {
-    return this.storyLikesService.unlikeStory(+req.user.id, storyId);
+  unlikeStory(@Request() req: AuthRequest, @Param('storyId') storyId: string) {
+    return this.storyLikesService.unlikeStory(+req.user.id, +storyId);
   }
 }

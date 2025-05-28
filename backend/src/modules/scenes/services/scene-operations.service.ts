@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { Scene, Story } from '@prisma/client';
@@ -27,7 +27,7 @@ export class SceneOperationsService {
         { id: sceneId, storyId },
         'Scene',
       );
-      if (story?.authorId !== userId) throw new Error('Unauthorized');
+      if (story?.authorId !== userId) throw new BadRequestException('You are not the author of this story');
       const newIsEnd = !scene?.isEnd;
       const updatedScene = await this.prisma.scene.update({
         where: { id: sceneId, storyId },
