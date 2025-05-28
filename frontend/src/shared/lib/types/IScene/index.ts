@@ -6,5 +6,6 @@ export interface IScene {
 	image?: string;
 	isEnd: boolean;
 	description: string;
+	maxChoices: number
 	choices: IChoice[];
 }

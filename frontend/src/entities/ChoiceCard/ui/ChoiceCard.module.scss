@@ -1,0 +1,89 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.index {
+  font-weight: bold;
+  color: #fff;
+}
+
+.input {
+  flex: 1;
+  padding: 0.4rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 0.25rem;
+  color: #f0f0f0;
+  margin-left: 0.6rem;
+}
+
+.input:focus
+// .select:focus 
+  {
+  outline: 2px solid #ff5722; /* оранжевый */
+  outline-offset: 2px;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1.6rem;
+  position: relative;
+}
+
+.select {
+  padding: 0.4rem;
+
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 0.25rem;
+  width: 300px;
+  box-sizing: border-box;
+  color: #f0f0f0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  display: none;
+}
+
+.checkboxBox {
+  width: 1.125rem; /* 18px */
+  height: 1.125rem;
+  border: 0.125rem solid black; /* 2px */
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checkboxBoxActive {
+  background-color: #000;
+}
+
+.checkboxIcon {
+  width: 0.875rem; /* 14px */
+  height: 0.875rem;
+  color: #fff;
+}

@@ -1,0 +1,39 @@
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0.2rem ;
+  user-select: none;
+}
+
+.checkboxInput {
+  display: none;
+  user-select: none;
+}
+
+.checkboxBox {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #00000080;
+  border-radius: 4px;
+  padding: 0.2rem ;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.active {
+  background-color: #1e1e1e;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
