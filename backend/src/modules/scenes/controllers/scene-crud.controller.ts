@@ -6,6 +6,7 @@ import {
   Post,
   Param,
   Patch,
+  Request,
 } from '@nestjs/common';
 import { SceneCrudService } from '../services/scene-crud.service';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
@@ -22,6 +23,7 @@ import {
   UpdateResponse,
   DeleteResponse,
 } from '../responses/scene-crud.response';
+import { AuthRequest } from 'src/common/types';
 
 @ApiTags('Scene - crud')
 @Controller('stories/:storyId/scene')
@@ -41,10 +43,11 @@ export class SceneCrudController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   create(
+    @Request() req: AuthRequest,
     @Param('storyId') storyId: string,
     @Body() createSceneDto: CreateSceneDto,
   ) {
-    return this.sceneCrudService.create(+storyId, createSceneDto);
+    return this.sceneCrudService.create(+req.user.id, +storyId, createSceneDto);
   }
 
   // Find all scenes

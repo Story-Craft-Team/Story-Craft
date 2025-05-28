@@ -1,6 +1,5 @@
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Controller, Param, Request, UseGuards } from '@nestjs/common';
-import { Get } from '@nestjs/common';
+import { Controller, Param, Patch, Request, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { StoryOperationsService } from '../services/story-operations.service';
@@ -14,7 +13,7 @@ export class StoryOperationsController {
   ) {}
 
   // Public story
-  @Get(':id/public')
+  @Patch('public/:id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Make a story public' })
@@ -28,7 +27,7 @@ export class StoryOperationsController {
   }
 
   // Private story
-  @Get(':id/private')
+  @Patch('private/:id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Make a story private' })

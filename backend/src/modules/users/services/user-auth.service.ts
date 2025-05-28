@@ -16,6 +16,7 @@ import { USER_INCLUDE } from 'src/common/constants';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoginResponse } from '../responses/user-auth.response';
 import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
+import { RegisterResponse } from '../responses/user-auth.response';
 
 @Injectable()
 export class UserAuthService {
@@ -33,7 +34,7 @@ export class UserAuthService {
    */
   async register(
     dto: CreateUserDto,
-  ): Promise<{ accessToken: string; user: Omit<User, 'password'> }> {
+  ): Promise<RegisterResponse> {
     try {
       const existingUser = await this.prisma.user.findFirst({
         where: {

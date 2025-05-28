@@ -32,17 +32,17 @@ export class UpdateStoryDto {
   @IsBoolean()
   isPublic?: boolean;
 
-  // @ApiProperty({
-  //     description: 'Choices of the story',
-  //     example: [],
-  // })
-  // @IsArray()
-  // choices?: Choice[];
+  @ApiProperty({
+      description: 'Choices of the story',
+      example: [],
+  })
+  @IsArray()
+  choices?: Choice[];
 
-  // @ApiProperty({
-  //     description: 'Scenes of the story',
-  //     example: [],
-  // })
-  // @IsArray()
-  // scenes?: Scene[];
+  @ApiProperty({
+      description: 'Scenes of the story',
+      example: [],
+  })
+  @IsArray()
+  scenes?: Scene[];
 }

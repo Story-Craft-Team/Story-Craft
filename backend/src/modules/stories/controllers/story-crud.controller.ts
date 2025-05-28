@@ -67,7 +67,8 @@ export class StoryCrudController {
   // Update story
   @Patch(':id')
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin, Role.moderator)
   @ApiOperation({ summary: 'Update a story by ID' })
   @ApiParam({ name: 'id', type: 'string', description: 'Story ID' })
   @ApiBody({ type: UpdateStoryDto })
@@ -99,10 +100,11 @@ export class StoryCrudController {
     description: 'Story not found',
   })
   updateMyStory(
+    @Request() req: AuthRequest,
     @Param('id') id: string,
     @Body() updateStoryDto: UpdateStoryDto,
   ) {
-    return this.storyCrudService.updateMyStory(+id, updateStoryDto);
+    return this.storyCrudService.updateMyStory(+req.user.id, +id, updateStoryDto);
   }
 
   // Delete story
@@ -138,7 +140,7 @@ export class StoryCrudController {
     status: 404,
     description: 'Story not found',
   })
-  removeMyStory(@Param('id') id: string) {
-    return this.storyCrudService.removeMyStory(+id);
+  removeMyStory(@Request() req: AuthRequest, @Param('id') id: string) {
+    return this.storyCrudService.removeMyStory(+req.user.id, +id);
   }
 }

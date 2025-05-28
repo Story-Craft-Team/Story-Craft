@@ -8,7 +8,7 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger'; // Import Swagger decorators
+import { ApiProperty } from '@nestjs/swagger';
 import { UserSettingsDto } from './user-settings.dto';
 import { Type } from 'class-transformer';
 
