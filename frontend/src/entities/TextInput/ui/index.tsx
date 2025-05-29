@@ -1,4 +1,4 @@
-import { useStore } from "@/shared/store";
+import { useStore } from "@/shared/stores";
 import { useShallow } from "zustand/shallow";
 import s from "./TextInput.module.scss";
 
