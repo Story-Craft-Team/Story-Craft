@@ -16,7 +16,6 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "sass": "^1.87.0",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
@@ -28,6 +27,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-no-restricted-imports": "^0.0.0",
     "pretty-quick": "^4.1.1",
+    "sass": "^1.89.0",
     "simple-git-hooks": "^2.13.0",
     "typescript": "^5"
   }
