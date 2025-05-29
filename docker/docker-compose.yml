@@ -1,0 +1,54 @@
+version: 'v2.35.1'
+services:
+  postgres:
+    image: postgres:17
+    restart: always
+    container_name: postgres
+    environment:
+      POSTGRES_USER: $DATABASE_USERNAME
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_DB: $DATABASE_NAME
+    ports:
+      - "$DATABASE_PORT:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Healthcheck для ожидания готовности БД
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - storycraft-network
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - storycraft-network
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - storycraft-network
+
+volumes:
+  postgres_data:
+
+networks:
+  storycraft-network:

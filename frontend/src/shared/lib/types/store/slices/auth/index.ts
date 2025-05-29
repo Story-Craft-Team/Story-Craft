@@ -1,4 +1,4 @@
-import { type IUser } from "@/common/lib/types";
+import { type IUser } from "@/shared/lib/types";
 
 type UserActions = {
 	setUsername: (username: IUser["username"]) => void;
