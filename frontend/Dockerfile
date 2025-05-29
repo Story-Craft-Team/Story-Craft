@@ -1,5 +1,5 @@
 # Этап сборки
-FROM node:18 AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
@@ -12,7 +12,7 @@ RUN npm run build
 RUN npm prune --production
 
 # Этап выполнения
-FROM node:18
+FROM node:18-alpine
 WORKDIR /app
 
 COPY --from=builder /app/package*.json ./
