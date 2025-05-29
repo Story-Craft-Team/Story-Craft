@@ -1,4 +1,5 @@
 import { useStore } from "@/shared/stores";
+
 /*
     An add-on in the form of a useSettingsChange custom hook that allows you to use the useStore hook inside the ThemeChange and LanguageChange
 */
@@ -12,7 +13,7 @@ export const useSettingsChange = () => {
         @e - properties of the target object
     */
     function ThemeChange(value: string) {
-        setTheme(value) //definition the changed theme based on the value of the target object (select)
+        setTheme(value as "light" | "dark") //definition the changed theme based on the value of the target object (select)
     }
 
     /*

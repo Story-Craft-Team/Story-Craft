@@ -1,0 +1,1 @@
+export {type response as HealthRes } from "./health";
