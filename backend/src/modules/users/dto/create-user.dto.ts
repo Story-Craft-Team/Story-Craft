@@ -11,6 +11,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { UserSettingsDto } from './user-settings.dto';
 import { Type } from 'class-transformer';
+import { Plan } from '@prisma/client';
 
 export class CreateUserDto {
   @ApiProperty({

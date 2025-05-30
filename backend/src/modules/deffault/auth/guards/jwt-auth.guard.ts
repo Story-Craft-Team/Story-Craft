@@ -4,8 +4,7 @@ import { User } from '@prisma/client';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
-  
+export class JwtAuthGuard extends AuthGuard('jwt') { 
   handleRequest<TUser = User>(
     err: any, 
     user: TUser, 
