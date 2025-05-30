@@ -25,7 +25,7 @@ model User {
   followingUsers Follow[]      @relation("UserFollowed")
   likedStories   Like[]        @relation("UserLikes")
   plan Plan @default(free)
-  planWillDeleteAt DateTime @default(dbgenerated("NOW() + interval '1 month'"))
+  planWillDeleteAt DateTime @default(dbgenerated("NOW() + interval '14 days'"))
   planCreatedAt DateTime @default(dbgenerated("NOW()"))
 }
 

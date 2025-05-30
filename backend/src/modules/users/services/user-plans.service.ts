@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { Plan, User } from "@prisma/client";
-import { identity } from "rxjs";
 import { HelpersService } from "src/modules/deffault/helpers/services/helpers.service";
 import { UserHelperService } from "src/modules/deffault/helpers/services/user-helpers.service";
 import { PrismaService } from "src/modules/deffault/prisma/prisma.service";
@@ -23,7 +22,7 @@ export class UserPlansService {
                 where: { id: id },
                 data: { 
                     plan: plan,
-                    planWillDeleteAt: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+                    planWillDeleteAt: new Date(new Date().setDate(new Date().getDate() + 14)),
                     planCreatedAt: new Date()
                 }
             });
