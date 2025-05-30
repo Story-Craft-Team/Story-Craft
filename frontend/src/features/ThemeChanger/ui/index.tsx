@@ -2,14 +2,14 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 import s from './ThemeChanger.module.scss'
-import { useStore } from '@/shared/stores';
+import { useSettingsStore } from '@/shared/stores';
 
 interface Props{
     children: ReactNode
 }
 
 export default function ThemeChanger({children} : Props){
-    const settings = useStore(state => state.settings);
+    const {theme} = useSettingsStore(state => state);
     const [isThemeLoaded, setIsThemeLoaded] = useState<boolean>(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function ThemeChanger({children} : Props){
         return null;
 
     return (
-        <div className={settings.theme === 'dark'? s.darkTheme : s.lightTheme}>
+        <div className={theme === 'dark'? s.darkTheme : s.lightTheme}>
             <div className={s.container}>
                 {children}
             </div>

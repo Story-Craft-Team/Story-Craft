@@ -1,6 +1,8 @@
 export interface IChoice {
 	id: number;
 	text: string;
-	nextScene: number;
+	nextSceneId: number;
 	access: boolean;
+	sceneId: number;
+	storyId: number;
 }

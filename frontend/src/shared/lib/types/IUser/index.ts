@@ -1,18 +1,31 @@
+import { UserRoles, ISettings, UserPlan } from "@/shared/lib";
+
 export interface IUser {
-	username: string;
-	email: string;
-	role: "admin" | "moderator" | "reader"; // postpone to enum
-	createdAt: Date;
-	updatedAt: Date;
-	isVerified: boolean;
-	displayName?: string;
-	bio?: string;
-	avatarUrl?: string;
-	favoriteStories?: string[];
-	followedUsers?: string[];
-	followingUsers?: string[];
-	settings: {
-		theme: "light" | "dark";
-		language?: string;
-	};
+  id: number;
+  username: string;
+  email: string;
+
+  role: UserRoles;
+  plan: UserPlan;
+
+  createdAt: Date;
+  updatedAt: Date;
+	
+  isVerified: boolean;
+  displayName?: string;
+  bio?: string;
+  avatarUrl?: string;
+
+  followedUsers?: number[];
+  followingUsers?: number[];
+
+  stories?: number[];
+  likedStories?: number[];
+  settings?: ISettings;
+}
+
+export interface ILoginSubmitData {
+  email?: string;
+  username?: string;
+  password: string;
 }

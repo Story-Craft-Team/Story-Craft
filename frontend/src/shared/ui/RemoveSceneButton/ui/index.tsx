@@ -1,20 +1,16 @@
-import { useShallow } from "zustand/react/shallow";
 import styles from "./RemoveSceneButton.module.scss";
-import { useStore } from "@/shared/stores";
 
-export default function RemoveSceneButton({ sceneId }: { sceneId: number }) {
-  const { removeScene } = useStore(
-    useShallow((state) => ({
-      removeScene: state.removeScene,
-    }))
-  );
+interface Props {
+    onClick: () => void;
+}
+
+export default function RemoveButton({ onClick }: Props) {
   return (
     <button
-      onClick={() => removeScene(sceneId)}
+      onClick={onClick}
       className={styles.removeButton}
       title="Удалить сцену"
     >
-      {/* <FiX /> */}
       Удалить сцену
     </button>
   );
