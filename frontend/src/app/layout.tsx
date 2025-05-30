@@ -4,7 +4,6 @@ import "./(deffault)/globals.scss";
 import { Header } from "@/widgets";
 import { ThemeChanger } from "@/features";
 
-
 const nunito = Nunito({
   subsets: ["latin", "cyrillic"],
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"], // Все размеры

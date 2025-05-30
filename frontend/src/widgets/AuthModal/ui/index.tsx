@@ -3,12 +3,14 @@
 import { Modal } from "@/shared/ui";
 import React, { useEffect, useState } from "react";
 import s from "./MainModal.module.scss";
-import { useStore } from "@/shared/stores";
+import { useSettingsStore } from "@/shared/stores";
+import { useShallow } from "zustand/shallow";
 
 export default function HomeModal() {
 	const [hasUserData, setHasUserData] = useState<boolean>(false);
 	const [username, setUsername] = useState<string>("");
-	const theme = useStore(state => state.settings.theme)
+	
+	const {theme} = useSettingsStore(useShallow((state) => state))
 	useEffect(() => {
 		//getting authorized user data
 		setHasUserData(!!localStorage.getItem("userData"));

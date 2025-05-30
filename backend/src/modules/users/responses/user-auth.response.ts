@@ -34,7 +34,6 @@ export class LoginResponse {
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
   accessToken: string;
-
   @ApiProperty({
     description: 'User information without password',
     example: {

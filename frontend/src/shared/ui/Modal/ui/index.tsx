@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import s from "./modalWindow.module.scss";
-import { useStore } from "@/shared/stores";
+import { useSettingsStore } from "@/shared/stores";
 
 interface Props {
 	children: ReactNode;
@@ -8,7 +8,7 @@ interface Props {
 
 export default function Modal({ children }: Props) {
 	const [windowIsVisible, setWindowVisible] = useState<boolean>(true);
-	const theme = useStore(state => state.settings.theme)
+	const theme = useSettingsStore(state => state.theme)
 
 	return (
 		<div

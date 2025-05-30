@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegistration } from "@/shared/helpers";
+import { useRegistration } from "@/shared/lib/hooks";
 import { CustomForm, CustomInput, Submit } from "@/shared/ui";
 import { ChangeEvent, useState } from "react";
 import s from "./Registration.module.scss";
