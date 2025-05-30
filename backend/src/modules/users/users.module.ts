@@ -15,6 +15,8 @@ import { UserOperationsController } from './controllers/user-operations.controll
 import { UserFollowsController } from './controllers/user-follows.controller';
 import { UserStoriesController } from './controllers/user-stories.controller';
 import { UserStoriesService } from './services/user-stories.service';
+import { UserPlansController } from './controllers/user-plans.controller';
+import { UserPlansService } from './services/user-plans.service';
 
 @Module({
   imports: [HelpersModule, PrismaModule, AuthModule],
@@ -24,6 +26,7 @@ import { UserStoriesService } from './services/user-stories.service';
     UserFollowsController,
     UserOperationsController,
     UserStoriesController,
+    UserPlansController,
   ],
   providers: [
     PrismaService,
@@ -34,6 +37,7 @@ import { UserStoriesService } from './services/user-stories.service';
     UserAuthService,
     UserHelperService,
     UserStoriesService,
+    UserPlansService,
   ],
 })
 export class UsersModule {}

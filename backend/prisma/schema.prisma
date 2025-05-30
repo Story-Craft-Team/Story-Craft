@@ -8,24 +8,25 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  username    String        @unique
-  email       String        @unique
-  role        Role          @default(reader)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  isVerified  Boolean       @default(false)
-  displayName String?
-  bio         String?
-  avatarUrl   String?
-  password    String
-  settings    UserSettings?
-
-  followedUsers  Follow[] @relation("UserFollowing")
-  followingUsers Follow[] @relation("UserFollowed")
-
-  stories      Story[] @relation("UserStories")
-  likedStories Like[]  @relation("UserLikes")
+  id             Int           @id @default(autoincrement())
+  username       String        @unique
+  email          String        @unique
+  role           Role          @default(reader)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  isVerified     Boolean       @default(false)
+  displayName    String?
+  bio            String?
+  avatarUrl      String?
+  password       String
+  stories        Story[]       @relation("UserStories")
+  settings       UserSettings?
+  followedUsers  Follow[]      @relation("UserFollowing")
+  followingUsers Follow[]      @relation("UserFollowed")
+  likedStories   Like[]        @relation("UserLikes")
+  plan Plan @default(free)
+  planWillDeleteAt DateTime?
+  planCreatedAt DateTime @default(now())
 }
 
 model Story {
@@ -99,4 +100,10 @@ enum Role {
   admin
   moderator
   reader
+}
+
+enum Plan{
+  free
+  level_1
+  level_2
 }
