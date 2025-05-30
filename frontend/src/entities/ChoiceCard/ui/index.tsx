@@ -4,24 +4,17 @@ import { CustomCheckbox } from "@/shared/ui";
 import { FaCheck } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./ChoiceCard.module.scss";
-import { useStore } from "@/shared/stores";
+import { useStoryEditorStore } from "@/shared/stores";
 
-interface ChoiceCardProps {
+interface Props {
   scene: IScene;
   choice: IChoice;
   index: number;
 }
 
-const ChoiceCard = ({ scene, choice, index }: ChoiceCardProps) => {
+const ChoiceCard = ({ scene, choice, index }: Props) => {
   const { scenes, setChoiceText, setChoiceNextSceneId, setChoiceAccess } =
-    useStore(
-      useShallow((state) => ({
-        scenes: state.scenes,
-        setChoiceText: state.setChoiceText,
-        setChoiceNextSceneId: state.setChoiceNextSceneId,
-        setChoiceAccess: state.setChoiceAccess,
-      }))
-    );
+    useStoryEditorStore(useShallow((state) => state));
 
   return (
     <div className={styles.wrapper}>
@@ -38,7 +31,7 @@ const ChoiceCard = ({ scene, choice, index }: ChoiceCardProps) => {
 
       <div className={styles.options}>
         <select
-          value={choice.nextScene}
+          value={choice.nextSceneId}
           onChange={(e) =>
             setChoiceNextSceneId(scene.id, choice.id, Number(e.target.value))
           }
@@ -46,11 +39,11 @@ const ChoiceCard = ({ scene, choice, index }: ChoiceCardProps) => {
         >
           <option value={0}>Выберите следующую сцену</option>
           {scenes
-            .filter((s: any) => s.id !== scene.id)
-            .map((s: any) => {
-              const sceneIndex = scenes.findIndex((sc: any) => sc.id === s.id);
+            .filter((s) => s.id !== scene.id)
+            .map((s) => {
+              const sceneIndex = scenes.findIndex((sc) => sc.id === s.id);
               return (
-                <option key={s.id} value={s.id}>
+                <option key={s.id} value={s.id} >
                   {s.title || `Сцена ${sceneIndex + 1}`}
                 </option>
               );
@@ -68,4 +61,3 @@ const ChoiceCard = ({ scene, choice, index }: ChoiceCardProps) => {
 };
 
 export default ChoiceCard;
-// TODO any вынести типы

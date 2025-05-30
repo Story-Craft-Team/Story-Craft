@@ -10,7 +10,7 @@ import {
 import { FaCheck } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./SceneCard.module.scss";
-import { useStore } from "@/shared/stores";
+import { useStoryEditorStore } from "@/shared/stores";
 
 interface SceneProps {
   scene: IScene;
@@ -23,14 +23,10 @@ export default function SceneCard({ scene }: SceneProps) {
     setSceneDescription,
     setSceneMaxChoices,
     setSceneIsEnd,
-  } = useStore(
-    useShallow((state) => ({
-      scenes: state.scenes,
-      setSceneTitle: state.setSceneTitle,
-      setSceneDescription: state.setSceneDescription,
-      setSceneMaxChoices: state.setSceneMaxChoices,
-      setSceneIsEnd: state.setSceneIsEnd,
-    }))
+    addNewChoice,
+    removeScene,
+  } = useStoryEditorStore(
+    useShallow((state) => state)
   );
 
   return (
@@ -90,11 +86,11 @@ export default function SceneCard({ scene }: SceneProps) {
       ))}
 
       {scene.choices.length < scene.maxChoices && (
-        <AddChoiceButton sceneId={scene.id} />
+        <AddChoiceButton onClick={() => addNewChoice(scene.id)} />
       )}
 
       <div className={styles.footer}>
-        <RemoveSceneButton sceneId={scene.id} />
+        <RemoveSceneButton onClick={() => removeScene(scene.id)}/>
       </div>
     </div>
   );

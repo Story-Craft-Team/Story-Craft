@@ -2,16 +2,12 @@
 import { SceneCard } from "@/entities";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./StoryEditor.module.scss";
-import { useStore } from "@/shared/stores";
+import { useStoryEditorStore } from "@/shared/stores";
+import { SaveStory, PublicStory, PrivateStory } from "@/features";
 
 export default function StoryEditor() {
-  const { scenes, addNewScene, setIsPublic, isPublic } = useStore(
-    useShallow((state) => ({
-      scenes: state.scenes,
-      addNewScene: state.addNewScene,
-      setIsPublic: state.setIsPublic,
-      isPublic: state.isPublic,
-    }))
+  const { scenes, addNewScene } = useStoryEditorStore(
+    useShallow((state) => state)
   );
 
   return (
@@ -25,34 +21,12 @@ export default function StoryEditor() {
       </button>
 
       <div className={styles.controls}>
-        <button
-          className={`${styles.controlButton} ${styles.save}`}
-          onClick={() => console.log("Сохранено")}
-        >
-          Сохранить
-        </button>
+        <SaveStory />
 
-        <button
-          className={`${styles.controlButton} ${styles.publish} ${
-            isPublic ? styles.disabled : ""
-          }`}
-          onClick={() => setIsPublic(true)}
-          disabled={isPublic}
-        >
-          Опубликовать
-        </button>
+        <PublicStory />
 
-        <button
-          className={`${styles.controlButton} ${styles.unpublish} ${
-            !isPublic ? styles.disabled : ""
-          }`}
-          onClick={() => setIsPublic(false)}
-          disabled={!isPublic}
-        >
-          Отменить публикацию
-        </button>
+        <PrivateStory />
       </div>
     </div>
   );
 }
-// TODO когда будет апи - то вынести 3 кнопки действия отдельно в features (наверно)

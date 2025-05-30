@@ -5,7 +5,7 @@ import s from "./Login.module.scss";
 import { Submit } from "@/shared/ui";
 import { CustomInput } from "@/shared/ui";
 import { CustomForm } from "@/shared/ui";
-import { useLogin } from "@/shared/helpers";
+import { useLogin } from "@/shared/lib/hooks";
 
 export default function Login() {
 	const [username, setUsername] = useState<string>("");

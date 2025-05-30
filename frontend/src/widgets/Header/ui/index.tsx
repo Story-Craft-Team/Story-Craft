@@ -11,7 +11,7 @@ export default function Header() {
         <p>The project in which you can create your own story!</p>
       </Link>
       <div className={s.right}>
-        <Link href="/editor/12">
+        <Link href="/editor/1">
           <IoMdCreate />
         </Link>
         <Link href="/settings">
@@ -24,6 +24,7 @@ export default function Header() {
     </div>
   );
 }
-//TODO убрать editor/12 и поставить create в финальной версии
+// TODO убрать editor/1 и поставить create в финальной версии
 
 // TODO сделать так - чтобы при нахождении на странице истории добавлялась кнопка редактирования только для пользователей, которые создавали историю
+                          
