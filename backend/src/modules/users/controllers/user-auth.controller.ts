@@ -6,7 +6,7 @@ import { Body } from '@nestjs/common';
 import { UserAuthService } from '../services/user-auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
-import { RegisterResponse, LoginResponse } from '../responses/user-auth.response';
+import { RegisterResponse, LoginResponse, RegisterResponse404, LoginResponse404, LoginResponse400 } from '../responses/user-auth.response';
 
 @ApiTags('User - auth')
 @Controller('users/auth')
@@ -14,16 +14,17 @@ export class UserAuthController {
   constructor(private readonly userAuthService: UserAuthService) {}
 
   @Post('/register')
-  @ApiOperation({ summary: 'Create a new user' })
+  @ApiOperation({ summary: 'Register a new user' })
   @ApiBody({ type: CreateUserDto })
   @ApiResponse({
     status: 201,
-    description: 'The user has been successfully created.',
+    description: 'The user has been successfully registered.',
     type: RegisterResponse,
   })
   @ApiResponse({
     status: 409,
     description: 'This user already exists',
+    type: RegisterResponse404,
   })
   register(@Body() createUserDto: CreateUserDto): Promise<RegisterResponse> {
     return this.userAuthService.register(createUserDto);
@@ -39,8 +40,14 @@ export class UserAuthController {
     type: LoginResponse,
   })
   @ApiResponse({
-    status: 401,
+    status: 404,
+    description: 'User with this email not found',
+    type: LoginResponse404,
+  })
+  @ApiResponse({
+    status: 400,
     description: 'Invalid credentials',
+    type: LoginResponse400,
   })
   login(@Body() loginUserDto: LoginUserDto): Promise<LoginResponse> {
     return this.userAuthService.login(loginUserDto);

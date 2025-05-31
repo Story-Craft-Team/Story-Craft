@@ -95,6 +95,14 @@ export class UserAuthService {
         throw new NotFoundException('User with this email not found');
       }
 
+      if (!loginUserDto.password) {
+        throw new BadRequestException('invalid credentials');
+      }
+
+      if (!loginUserDto.email && !loginUserDto.username) {
+        throw new BadRequestException('invalid credentials');
+      }
+
       const passwordValid = await this.bcryptService.comparePasswords(
         loginUserDto.password,
         user.password,
