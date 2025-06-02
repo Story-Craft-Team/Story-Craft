@@ -17,6 +17,7 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { LoginResponse } from '../responses/user-auth.response';
 import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 import { RegisterResponse } from '../responses/user-auth.response';
+import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 
 @Injectable()
 export class UserAuthService {
@@ -25,6 +26,7 @@ export class UserAuthService {
     private readonly bcryptService: BcryptService,
     private readonly authService: AuthService,
     private readonly userHelpers: UserHelperService,
+    private readonly helpers: HelpersService,
   ) {}
 
   /**
@@ -108,6 +110,56 @@ export class UserAuthService {
       return {
         accessToken,
         user: this.userHelpers.excludePassword(user) as UserWithoutPassword,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async validateGoogleUser(googleUser: CreateUserDto){
+    try{
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email: googleUser.email
+        }
+      })
+
+      if(user)
+        return user
+      
+      const hashedPassword = await this.bcryptService.hashPassword(
+        googleUser.password,
+      );
+      
+      const settings = googleUser.settings ?? {
+        theme: 'dark',
+        language: 'ru',
+      };
+  
+      return await this.prisma.user.create({
+        data:{
+          ...googleUser,
+          password: hashedPassword,
+          settings: {create: settings}
+        }
+      })
+    }
+    catch(error){
+      throw error
+    }
+  }
+
+  async generateUserJwt(id: string){
+    try {
+      await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
+
+      const user = await this.prisma.user.findUnique({
+        where: { id: +id },
+      });
+      const accessToken = await this.authService.generateToken(user!);
+
+      return {
+        accessToken
       };
     } catch (error) {
       throw error;
