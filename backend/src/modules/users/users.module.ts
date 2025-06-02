@@ -17,9 +17,11 @@ import { UserStoriesController } from './controllers/user-stories.controller';
 import { UserStoriesService } from './services/user-stories.service';
 import { UserPlansController } from './controllers/user-plans.controller';
 import { UserPlansService } from './services/user-plans.service';
+import { ConfigModule } from '@nestjs/config';
+import { GoogleStrategy } from 'src/common/strategies/google.strategy';
 
 @Module({
-  imports: [HelpersModule, PrismaModule, AuthModule],
+  imports: [HelpersModule, PrismaModule, AuthModule, ConfigModule,],
   controllers: [
     UserCrudController,
     UserAuthController,
@@ -38,6 +40,7 @@ import { UserPlansService } from './services/user-plans.service';
     UserHelperService,
     UserStoriesService,
     UserPlansService,
+    GoogleStrategy,
   ],
 })
 export class UsersModule {}

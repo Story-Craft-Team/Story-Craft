@@ -1,4 +1,4 @@
-import { Post } from '@nestjs/common';
+import { Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
@@ -7,6 +7,7 @@ import { UserAuthService } from '../services/user-auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
 import { RegisterResponse, LoginResponse } from '../responses/user-auth.response';
+import { GoogleAuthGuard } from 'src/common/guards/google-auth.guard';
 
 @ApiTags('User - auth')
 @Controller('users/auth')
@@ -44,5 +45,28 @@ export class UserAuthController {
   })
   login(@Body() loginUserDto: LoginUserDto): Promise<LoginResponse> {
     return this.userAuthService.login(loginUserDto);
+  }
+
+  @ApiOperation({ summary: 'Login a user by google' })
+  @ApiResponse({
+    status: 200,
+    description: 'The user has been successfully logged in with google.',
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @UseGuards(GoogleAuthGuard)
+  @Get("google/login")
+  googleLogin(){}
+
+  @ApiOperation({ summary: 'Generate JWT for google user and redirect to frontend' })
+  @ApiResponse({
+    status: 200,
+    description: 'The JWT for google user has been successfully generated.',
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @UseGuards(GoogleAuthGuard)
+  @Get("google/callback")
+  async googleCallback(@Req() req, @Res() res){
+    const response = await this.userAuthService.generateUserJwt(req.user.id)
+    res.redirect(`http://localhost:3000?token=${response.accessToken}`)
   }
 }
