@@ -1,4 +1,4 @@
-import { Get, Post, Req, Request, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Get, Patch, Post, Req, Request, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
@@ -6,7 +6,7 @@ import { Body } from '@nestjs/common';
 import { UserAuthService } from '../services/user-auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
-import { RegisterResponse, LoginResponse, LogoutResponse, MeResponse } from '../responses/user-auth.response';
+import { RegisterResponse, LoginResponse, LogoutResponse, MeResponse, RefreshTokenResponse } from '../responses/user-auth.response';
 import { GoogleAuthGuard } from 'src/common/guards/google-auth.guard';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { UserAuthHelperService } from 'src/modules/deffault/helpers/services/user-auth.helpers.service';
@@ -102,5 +102,20 @@ export class UserAuthController {
   logout(@Request() req){
     const token = req.headers.authorization.split(' ')[1];
     return this.userAuthHelperService.revokeToken(token);
+  }
+
+  @ApiOperation({ summary: 'JWT access token updating' })
+  @ApiResponse({
+    status: 200,
+    description: 'User JWT access token has been updated.',
+    type: RefreshTokenResponse
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Patch("refresh")
+  refreshAccessToken(@Request() req){
+    const refreshToken = req.headers.authorization.split(' ')[1];
+    return this.userAuthHelperService.refreshAccessToken(refreshToken);
   }
 }
