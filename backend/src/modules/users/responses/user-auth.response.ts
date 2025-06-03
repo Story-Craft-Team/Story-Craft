@@ -4,10 +4,16 @@ import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 export class RegisterResponse {
   @ApiProperty({
-    description: 'JWT access token',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    description: 'JWT access and refresh tokens',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    }
   })
-  accessToken: string;
+  tokens: {
+    accessToken: string,
+    refreshToken: string,
+  }
 
   @ApiProperty({
     description: 'User information without password',
@@ -30,10 +36,17 @@ export class RegisterResponse {
 
 export class LoginResponse {
   @ApiProperty({
-    description: 'JWT access token',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    description: 'JWT access and refresh tokens',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    }
   })
-  accessToken: string;
+  tokens: {
+    accessToken: string,
+    refreshToken: string,
+  }
+
   @ApiProperty({
     description: 'User information without password',
     example: {
@@ -48,6 +61,50 @@ export class LoginResponse {
         theme: 'dark',
         language: 'ru',
       },
+    },
+  })
+  user: UserWithoutPassword;
+}
+
+export class MeResponse {
+  @ApiProperty({
+    description: 'JWT access and refresh tokens',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    }
+  })
+  tokens: {
+    accessToken: string,
+    refreshToken: string,
+  }
+
+  @ApiProperty({
+    description: 'Information about user with JWT',
+    example: {
+      id: 2,
+      username: "admin",
+      email: "admin@gmail.com",
+      role: "admin",
+      createdAt: "2025-05-23T11:16:25.780Z",
+      updatedAt: "2025-05-30T09:53:13.602Z",
+      isVerified: true,
+      displayName: "Andrey",
+      bio: null,
+      avatarUrl: "https://example.com/avatar.jpg",
+      plan: "level_2",
+      planWillDeleteAt: "2025-06-13T09:53:13.600Z",
+      planCreatedAt: "2025-05-30T09:53:13.600Z"
+    },
+  })
+  user: UserWithoutPassword;
+}
+
+export class LogoutResponse {
+  @ApiProperty({
+    description: 'User JWT revoked',
+    example: {
+      message: "User has been logged out"
     },
   })
   user: UserWithoutPassword;
