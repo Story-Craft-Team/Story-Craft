@@ -96,6 +96,11 @@ model UserSettings {
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model RevokedToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+}
+
 enum Role {
   admin
   moderator

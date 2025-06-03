@@ -18,6 +18,7 @@ import { LoginResponse } from '../responses/user-auth.response';
 import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 import { RegisterResponse } from '../responses/user-auth.response';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserAuthService {
@@ -27,6 +28,7 @@ export class UserAuthService {
     private readonly authService: AuthService,
     private readonly userHelpers: UserHelperService,
     private readonly helpers: HelpersService,
+    private readonly jwtService: JwtService
   ) {}
 
   /**
@@ -163,6 +165,50 @@ export class UserAuthService {
       };
     } catch (error) {
       throw error;
+    }
+  }
+
+  async revokeToken(token: string){
+    try{
+      await this.prisma.revokedToken.create({
+        data:{
+          token
+        }
+      })
+      return { message: "User has been logged out"}
+    }
+    catch(error){
+      throw error
+    }
+  }
+
+  async isTokenRevoked(token: string): Promise<boolean> {
+    try{
+      const revokedToken = await this.prisma.revokedToken.findUnique({
+        where: { token },
+      });
+      return revokedToken !== null;
+    }
+    catch(error){
+      throw error
+    }
+  }
+
+  async me(token: string){
+    try{
+      const data = await this.prisma.user.findUnique({
+        where: {
+          id: this.jwtService.decode(token).id
+        }
+      })
+      const user = await this.userHelpers.excludePassword(data!)
+      return{
+        accessToken: token,
+        ...user,
+      }
+    }
+    catch(error){
+      throw error
     }
   }
 }
