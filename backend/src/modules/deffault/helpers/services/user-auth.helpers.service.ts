@@ -38,7 +38,6 @@ export class UserAuthHelperService {
     async refreshAccessToken(refreshToken: string){
         try{
             const data = this.jwtService.decode(refreshToken)
-            console.log(data)
             const accessToken = await this.authService.generateToken(data)
             return {
                 tokens: {
