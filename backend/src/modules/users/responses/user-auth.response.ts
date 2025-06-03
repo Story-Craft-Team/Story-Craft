@@ -4,10 +4,16 @@ import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 export class RegisterResponse {
   @ApiProperty({
-    description: 'JWT access token',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    description: 'JWT access and refresh tokens',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    }
   })
-  accessToken: string;
+  tokens: {
+    accessToken: string,
+    refreshToken: string,
+  }
 
   @ApiProperty({
     description: 'User information without password',
@@ -30,10 +36,17 @@ export class RegisterResponse {
 
 export class LoginResponse {
   @ApiProperty({
-    description: 'JWT access token',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    description: 'JWT access and refresh tokens',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    }
   })
-  accessToken: string;
+  tokens: {
+    accessToken: string,
+    refreshToken: string,
+  }
+
   @ApiProperty({
     description: 'User information without password',
     example: {
@@ -55,9 +68,20 @@ export class LoginResponse {
 
 export class MeResponse {
   @ApiProperty({
+    description: 'JWT access and refresh tokens',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    }
+  })
+  tokens: {
+    accessToken: string,
+    refreshToken: string,
+  }
+
+  @ApiProperty({
     description: 'Information about user with JWT',
     example: {
-      accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0ODkyODAyNiwiZXhwIjoxNzQ4OTMxNjI2fQ.JYRzCPbprIyV1kJmhGy5t4B_AQkwK9jmiBLBFNyC-ak",
       id: 2,
       username: "admin",
       email: "admin@gmail.com",

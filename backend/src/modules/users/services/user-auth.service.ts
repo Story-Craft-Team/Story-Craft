@@ -62,7 +62,7 @@ export class UserAuthService {
         theme: 'dark',
         language: 'ru',
       };
-
+      
       const createdUser = await this.prisma.user.create({
         data: {
           ...dto,
@@ -71,9 +71,14 @@ export class UserAuthService {
         },
         include: USER_INCLUDE,
       });
+      
+      const refreshToken = await this.authService.generateRefreshToken(createdUser!);
 
       return {
-        accessToken: await this.authService.generateToken(createdUser),
+        tokens: {
+          accessToken: await this.authService.generateToken(createdUser),
+          refreshToken,
+        },
         user: this.userHelpers.excludePassword(
           createdUser,
         ) as UserWithoutPassword,
@@ -107,10 +112,15 @@ export class UserAuthService {
         throw new BadRequestException('Invalid password');
       }
 
+      const refreshToken = await this.authService.generateRefreshToken(user!);
+
       const accessToken = await this.authService.generateToken(user);
 
       return {
-        accessToken,
+        tokens: {
+          accessToken,
+          refreshToken,
+        },
         user: this.userHelpers.excludePassword(user) as UserWithoutPassword,
       };
     } catch (error) {
@@ -160,50 +170,35 @@ export class UserAuthService {
       });
       const accessToken = await this.authService.generateToken(user!);
 
+      const refreshToken = await this.authService.generateRefreshToken(user!);
+      
       return {
-        accessToken
+        tokens: {
+          accessToken,
+          refreshToken,
+        },
       };
     } catch (error) {
       throw error;
     }
   }
 
-  async revokeToken(token: string){
-    try{
-      await this.prisma.revokedToken.create({
-        data:{
-          token
-        }
-      })
-      return { message: "User has been logged out"}
-    }
-    catch(error){
-      throw error
-    }
-  }
-
-  async isTokenRevoked(token: string): Promise<boolean> {
-    try{
-      const revokedToken = await this.prisma.revokedToken.findUnique({
-        where: { token },
-      });
-      return revokedToken !== null;
-    }
-    catch(error){
-      throw error
-    }
-  }
-
-  async me(token: string){
+  async me(accessToken: string){
     try{
       const data = await this.prisma.user.findUnique({
         where: {
-          id: this.jwtService.decode(token).id
+          id: this.jwtService.decode(accessToken).id
         }
       })
+
+      const refreshToken = await this.authService.generateRefreshToken(data!);
+
       const user = await this.userHelpers.excludePassword(data!)
       return{
-        accessToken: token,
+        tokens: {
+          accessToken,
+          refreshToken,
+        },
         ...user,
       }
     }

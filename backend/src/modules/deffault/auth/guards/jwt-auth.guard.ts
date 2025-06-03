@@ -2,10 +2,11 @@ import { ExecutionContext, ForbiddenException, Injectable, UnauthorizedException
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { UserAuthService } from 'src/modules/users/services/user-auth.service';
+import { UserAuthHelperService } from '../../helpers/services/user-auth.helpers.service';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private userAuthService: UserAuthService) {
+  constructor(private userAuthHelperService: UserAuthHelperService) {
     super();
   }
 
@@ -26,7 +27,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
     const token = this.getTokenFromRequest(context);
     
-    const isRevoked = await this.userAuthService.isTokenRevoked(token);
+    const isRevoked = await this.userAuthHelperService.isTokenRevoked(token);
     if (isRevoked || !token) {
       throw new ForbiddenException('Token has been revoked');
     }

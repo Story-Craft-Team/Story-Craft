@@ -14,7 +14,9 @@ export class AuthService {
       role: user.role,
     };
   
-    return this.jwtService.signAsync(payload);
+    return this.jwtService.signAsync(payload, {
+      expiresIn: jwtConstants.accessTokenExpiresIn,
+    });
   }
   
   async generateRefreshToken(user: JwtPayload): Promise<string> {

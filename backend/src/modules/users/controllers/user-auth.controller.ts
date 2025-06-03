@@ -9,11 +9,14 @@ import { Controller } from '@nestjs/common';
 import { RegisterResponse, LoginResponse, LogoutResponse, MeResponse } from '../responses/user-auth.response';
 import { GoogleAuthGuard } from 'src/common/guards/google-auth.guard';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
+import { UserAuthHelperService } from 'src/modules/deffault/helpers/services/user-auth.helpers.service';
 
 @ApiTags('User - auth')
 @Controller('users/auth')
 export class UserAuthController {
-  constructor(private readonly userAuthService: UserAuthService) {}
+  constructor(private readonly userAuthService: UserAuthService,
+              private readonly userAuthHelperService: UserAuthHelperService
+  ) {}
 
   @Post('/register')
   @ApiOperation({ summary: 'Create a new user' })
@@ -68,7 +71,7 @@ export class UserAuthController {
   @Get("google/callback")
   async googleCallback(@Req() req, @Res() res){
     const response = await this.userAuthService.generateUserJwt(req.user.id)
-    res.redirect(`http://localhost:3000?token=${response.accessToken}`)
+    res.redirect(`http://localhost:3000?token=${response.tokens.accessToken}`)
   }
 
   @ApiOperation({ summary: 'Information about user with JWT' })
@@ -98,6 +101,6 @@ export class UserAuthController {
   @Post("logout")
   logout(@Request() req){
     const token = req.headers.authorization.split(' ')[1];
-    return this.userAuthService.revokeToken(token);
+    return this.userAuthHelperService.revokeToken(token);
   }
 }
