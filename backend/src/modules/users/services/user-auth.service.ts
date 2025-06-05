@@ -9,9 +9,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '@prisma/client';
 import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.service';
 import { AuthService } from 'src/modules/deffault/auth/services/auth.service';
-import {
-  UserHelperService,
-} from 'src/modules/deffault/helpers/services/user-helpers.service';
+import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoginResponse } from '../responses/user-auth.response';
@@ -28,7 +26,7 @@ export class UserAuthService {
     private readonly authService: AuthService,
     private readonly userHelpers: UserHelperService,
     private readonly helpers: HelpersService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
 
   /**
@@ -36,9 +34,7 @@ export class UserAuthService {
    * @param dto - The user data
    * @returns The registered user
    */
-  async register(
-    dto: CreateUserDto,
-  ): Promise<RegisterResponse> {
+  async register(dto: CreateUserDto): Promise<RegisterResponse> {
     try {
       const existingUser = await this.prisma.user.findFirst({
         where: {
@@ -62,7 +58,7 @@ export class UserAuthService {
         theme: 'dark',
         language: 'ru',
       };
-      
+
       const createdUser = await this.prisma.user.create({
         data: {
           ...dto,
@@ -71,12 +67,16 @@ export class UserAuthService {
         },
         include: USER_INCLUDE,
       });
-      
-      const refreshToken = await this.authService.generateRefreshToken(createdUser!);
+
+      const refreshToken = await this.authService.generateRefreshToken(
+        createdUser!,
+      );
+
+      const accessToken = await this.authService.generateToken(createdUser!);
 
       return {
         tokens: {
-          accessToken: await this.authService.generateToken(createdUser),
+          accessToken,
           refreshToken,
         },
         user: this.userHelpers.excludePassword(
@@ -93,9 +93,7 @@ export class UserAuthService {
    * @param loginUserDto - The login user data
    * @returns The access token and user
    */
-  async login(
-    loginUserDto: LoginUserDto,
-  ): Promise<LoginResponse> {
+  async login(loginUserDto: LoginUserDto): Promise<LoginResponse> {
     try {
       const user = await this.prisma.user.findUnique({
         where: { email: loginUserDto.email, username: loginUserDto.username },
@@ -128,40 +126,38 @@ export class UserAuthService {
     }
   }
 
-  async validateGoogleUser(googleUser: CreateUserDto){
-    try{
+  async validateGoogleUser(googleUser: CreateUserDto) {
+    try {
       const user = await this.prisma.user.findUnique({
         where: {
-          email: googleUser.email
-        }
-      })
+          email: googleUser.email,
+        },
+      });
 
-      if(user)
-        return user
-      
+      if (user) return user;
+
       const hashedPassword = await this.bcryptService.hashPassword(
         googleUser.password,
       );
-      
+
       const settings = googleUser.settings ?? {
         theme: 'dark',
         language: 'ru',
       };
-  
+
       return await this.prisma.user.create({
-        data:{
+        data: {
           ...googleUser,
           password: hashedPassword,
-          settings: {create: settings}
-        }
-      })
-    }
-    catch(error){
-      throw error
+          settings: { create: settings },
+        },
+      });
+    } catch (error) {
+      throw error;
     }
   }
 
-  async generateUserJwt(id: string){
+  async generateUserJwt(id: string) {
     try {
       await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
 
@@ -171,7 +167,7 @@ export class UserAuthService {
       const accessToken = await this.authService.generateToken(user!);
 
       const refreshToken = await this.authService.generateRefreshToken(user!);
-      
+
       return {
         tokens: {
           accessToken,
@@ -183,27 +179,49 @@ export class UserAuthService {
     }
   }
 
-  async me(accessToken: string){
-    try{
+  async updateUserJwt(refreshToken: string) {
+    try {
+      const decoded = this.jwtService.verify(refreshToken); // verify вместо decode
+      if (!decoded || typeof decoded !== 'object' || !('id' in decoded)) {
+        throw new Error('Invalid token payload');
+      }
+
+      const user = await this.prisma.user.findUnique({
+        where: { id: decoded.id },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const accessToken = await this.authService.generateToken(user);
+
+      return { accessToken };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async me(accessToken: string) {
+    try {
       const data = await this.prisma.user.findUnique({
         where: {
-          id: this.jwtService.decode(accessToken).id
-        }
-      })
+          id: this.jwtService.decode(accessToken).id,
+        },
+      });
 
       const refreshToken = await this.authService.generateRefreshToken(data!);
 
-      const user = await this.userHelpers.excludePassword(data!)
-      return{
+      const user = await this.userHelpers.excludePassword(data!);
+      return {
         tokens: {
           accessToken,
           refreshToken,
         },
-        ...user,
-      }
-    }
-    catch(error){
-      throw error
+        user,
+      };
+    } catch (error) {
+      throw error;
     }
   }
 }

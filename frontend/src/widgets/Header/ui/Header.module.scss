@@ -1,19 +1,36 @@
+@use "@/app/(default)/styles/variables.scss" as *;
+
 .header {
+  padding: 20px;
+  width: 100%; // FIXED: вместо 100vw
+  position: absolute;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 10px rgba(10, 10, 10, 0.7);
+  box-sizing: border-box; // гарантирует, что padding не увеличит ширину
+}
+
+.container {
+  padding-inline: 20px; // фикс значения
+  margin-inline: auto;
+  max-width: 1200px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #ccc;
-  width: 100%;
+  box-sizing: border-box;
 }
 
 .left {
   text-align: center;
+  margin-top: -10px;
+
   h1 {
     font-size: 28px;
     font-weight: bold;
     margin: 0;
   }
+
   p {
     font-size: 17px;
     margin: 0;
@@ -24,4 +41,17 @@
   display: flex;
   gap: 10px;
   font-size: 40px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.hr {
+  position: absolute;
+  left: 0;
+  width: 100%; // FIXED: вместо 100vw
+  height: 2px;
+  background-color: $main-red;
+  border: none;
+  top: 100px;
+  box-sizing: border-box;
 }

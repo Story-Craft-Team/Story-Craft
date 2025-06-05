@@ -4,28 +4,26 @@ export interface IUser {
   id: number;
   username: string;
   email: string;
-
   role: UserRoles;
-  plan: UserPlan;
-
   createdAt: Date;
   updatedAt: Date;
-	
   isVerified: boolean;
   displayName?: string;
   bio?: string;
   avatarUrl?: string;
-
-  followedUsers?: number[];
-  followingUsers?: number[];
-
-  stories?: number[];
-  likedStories?: number[];
-  settings?: ISettings;
+  plan: UserPlan;
+	planWillDeleteAt?: Date;
+  planCreatedAt?: Date;
 }
 
 export interface ILoginSubmitData {
-  email?: string;
   username?: string;
   password: string;
+}
+
+export interface IRegistrationSubmitData {
+  email: string;
+  username: string;
+  password: string;
+  rePassword: string;
 }

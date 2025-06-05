@@ -1,4 +1,4 @@
 export const jwtConstants = {
-  accessTokenExpiresIn: '1d',
+  accessTokenExpiresIn: '15s',
   refreshTokenExpiresIn: '30d',
 };
