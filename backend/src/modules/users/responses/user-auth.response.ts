@@ -107,5 +107,16 @@ export class LogoutResponse {
       message: "User has been logged out"
     },
   })
-  user: UserWithoutPassword;
+  data: string;
+}
+
+export class RefreshTokenResponse {
+  @ApiProperty({
+    description: 'User JWT access token has been updated',
+    example: {
+      accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    },
+  })
+  tokens: string;
 }
