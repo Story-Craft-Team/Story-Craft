@@ -1,5 +1,16 @@
-.btn{
-    height: 40px;
-    width: 350px;
-    position: relative;
+@use "@/app/(default)/styles/variables.scss" as *;
+
+.btn {
+  height: 40px;
+  width: 350px;
+  position: relative;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: $main-red 1px solid;
+  border: none;
+  font-weight: bold;
+  color: $main-light;
+  text-decoration: underline;
+  background-color: $main-red;
+  margin-top: 15px;
 }

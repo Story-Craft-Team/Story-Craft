@@ -51,6 +51,7 @@ export class UserAuthController {
     return this.userAuthService.login(loginUserDto);
   }
 
+  // Login with google
   @ApiOperation({ summary: 'Login a user by google' })
   @ApiResponse({
     status: 200,
@@ -74,6 +75,7 @@ export class UserAuthController {
     res.redirect(`http://localhost:3000?token=${response.tokens.accessToken}`)
   }
 
+  // Me
   @ApiOperation({ summary: 'Information about user with JWT' })
   @ApiResponse({
     status: 200,
@@ -82,13 +84,13 @@ export class UserAuthController {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get("me")
   me(@Request() req){
     const token = req.headers.authorization.split(' ')[1];
     return this.userAuthService.me(token);
   }
 
+  // Logout
   @ApiOperation({ summary: 'JWT revoking' })
   @ApiResponse({
     status: 200,
@@ -102,5 +104,26 @@ export class UserAuthController {
   logout(@Request() req){
     const token = req.headers.authorization.split(' ')[1];
     return this.userAuthHelperService.revokeToken(token);
+  }
+
+  // Update user JWT
+  @ApiOperation({ summary: 'Update user JWT' })
+  @ApiResponse({
+    status: 200,
+    description: 'User JWT updated.',
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        refreshToken: { type: 'string' }
+      },
+      required: ['refreshToken']
+    }
+  })
+  @Post("update-user-jwt")
+  updateUserJwt(@Body() body: { refreshToken: string }) {
+    return this.userAuthService.updateUserJwt(body.refreshToken);
   }
 }

@@ -1,9 +1,26 @@
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@use "@/app/(default)/styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.alert{
-    color: red;
-    margin-bottom: -50;
+.alert {
+  color: red;
+  margin-bottom: -50;
+}
+
+.input {
+  border: none;
+  outline: $main-red 1px solid;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 15px 20px;
+  background-color: transparent;
+  color: $main-light;
+}
+.link {
+  color: $main-red;
+  cursor: pointer;
+  text-decoration: underline;
 }

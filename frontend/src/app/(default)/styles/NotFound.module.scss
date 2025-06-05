@@ -1,0 +1,16 @@
+@use "@/app/(default)/styles/variables.scss" as *;
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+.link {
+  text-decoration: underline;
+  color: $main-light;
+  cursor: pointer;
+}

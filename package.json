@@ -4,5 +4,9 @@
   },
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\""
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.79.0",
+    "axios": "^1.9.0"
   }
 }

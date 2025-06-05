@@ -1,2 +1,2 @@
-export { useRegistration, useLogin } from './auth'
-export { useSettingsChange } from './settings'
+export { useRegistration, useLogin } from './useAuth'
+export { useSettingsChange } from './useSettings'
