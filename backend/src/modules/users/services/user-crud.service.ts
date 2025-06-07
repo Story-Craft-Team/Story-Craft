@@ -42,7 +42,7 @@ export class UserCrudService {
    */
   async findOne(idOrUsername: string): Promise<FindOneResponse> {
     try {
-      const user = await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
+      const user = await this.helpers.getEntityOrThrow<User>('user', { idOrUsername }, 'User');
       return { user };
     } catch (error) {
       throw error;
