@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import {
   IRegistrationSubmitData,
   type ILoginSubmitData,
-} from "@/shared/lib/types";
+} from "@/shared/lib";
 import { LoginDto, RegisterDto } from "@/shared/api/auth/types";
 import { register, login } from "@/shared/api/auth/mutations";
 
@@ -23,14 +23,12 @@ const useAuth = () => {
     let { username, password } = data;
     const email = username?.includes("@") ? username : undefined;
     if (email) username = undefined;
-
     try {
       const response = await login({ username, email, password } as LoginDto);
       saveTokens(response?.tokens);
       router.push("/");
     } catch (error) {
       alert("Login failed");
-      console.error(error);
     }
   };
 
@@ -53,7 +51,6 @@ const useAuth = () => {
       router.push("/");
     } catch (error) {
       alert("Registration failed");
-      console.error(error);
     }
   };
 

@@ -7,7 +7,6 @@ export const register = async (data: RegisterDto): Promise<AuthResponse> => {
     const response = await axiosInstance.post(API_ROUTES.auth.register, data);
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -17,7 +16,6 @@ export const login = async (data: LoginDto): Promise<AuthResponse> => {
     const response = await axiosInstance.post(API_ROUTES.auth.login, data);
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

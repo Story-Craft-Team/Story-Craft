@@ -1,26 +1,12 @@
-"use client";
-import { SceneCard } from "@/entities";
-import { useShallow } from "zustand/react/shallow";
-import styles from "./StoryEditor.module.scss";
-import { useStoryEditorStore } from "@/shared/stores";
-import { SaveStory, PublicStory, PrivateStory } from "@/features";
+import s from "./StoryEditor.module.scss";
+import { SaveStory, PublicStory, PrivateStory, SceneGenerator } from "@/features";
 
 export default function StoryEditor() {
-  const { scenes, addNewScene } = useStoryEditorStore(
-    useShallow((state) => state)
-  );
 
   return (
-    <div className={styles.container}>
-      {scenes.map((scene) => (
-        <SceneCard key={scene.id} scene={scene} />
-      ))}
-
-      <button onClick={addNewScene} className={styles.addSceneButton}>
-        Добавить сцену
-      </button>
-
-      <div className={styles.controls}>
+    <div className={s.container}>
+      <SceneGenerator/>
+      <div className={s.controls}>
         <SaveStory />
 
         <PublicStory />

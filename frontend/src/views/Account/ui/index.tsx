@@ -1,8 +1,8 @@
 "use client"
 
-import { useAuthStore } from "@/shared/stores";
+import { useUsersStore } from "@/shared/stores";
 
 export default function AccountPage() {
-  const { user } = useAuthStore();
+  const { user } = useUsersStore();
     return <div>{user?.username}</div>;
 }

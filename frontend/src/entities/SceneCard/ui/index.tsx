@@ -1,7 +1,7 @@
 "use client";
 
 import { ChoiceCard } from "@/entities";
-import { IScene } from "@/shared/lib/types";
+import { IScene } from "@/shared/lib";
 import {
   AddChoiceButton,
   CustomCheckbox,
