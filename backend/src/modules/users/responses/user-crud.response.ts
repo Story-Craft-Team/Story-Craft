@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 export class DeleteResponse {

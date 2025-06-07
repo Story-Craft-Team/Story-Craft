@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Plan, User } from "@prisma/client";
 import { HelpersService } from "src/modules/deffault/helpers/services/helpers.service";
-import { UserHelperService } from "src/modules/deffault/helpers/services/user-helpers.service";
 import { PrismaService } from "src/modules/deffault/prisma/prisma.service";
 
 @Injectable()
@@ -9,7 +8,6 @@ export class UserPlansService {
 
     constructor(private readonly helpers: HelpersService,
         private readonly prisma: PrismaService,
-        private readonly userHelper:UserHelperService
     ) {}
 
     async setPlan(id: number, body:{plan: Plan}){
@@ -27,7 +25,7 @@ export class UserPlansService {
                 }
             });
 
-            return this.userHelper.excludePassword(updatedUser)
+            return updatedUser
         }catch(error){
             throw error
         }

@@ -10,6 +10,7 @@ import { RegisterResponse, LoginResponse, LogoutResponse, MeResponse, RefreshTok
 import { GoogleAuthGuard } from 'src/common/guards/google-auth.guard';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { UserAuthHelperService } from 'src/modules/deffault/helpers/services/user-auth.helpers.service';
+import { KeepPassword } from 'src/modules/deffault/auth/decorators/keepPassword.decorator';
 
 @ApiTags('User - auth')
 @Controller('users/auth')

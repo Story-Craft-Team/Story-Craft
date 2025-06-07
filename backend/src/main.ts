@@ -1,7 +1,8 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ExcludePasswordInterceptor } from './common/interceptors/excludePassword.interceptor';
 
 // Load environment variables
 dotenv.config();
@@ -20,6 +21,7 @@ function createSwaggerConfig() {
 async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule); // Create NestJS app
+    app.useGlobalInterceptors(new ExcludePasswordInterceptor(new Reflector()));
 
     app.enableCors({
       origin: 'http://localhost:3000',
