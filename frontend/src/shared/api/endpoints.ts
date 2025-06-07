@@ -8,5 +8,6 @@ export const API_ROUTES = {
   },
   users: {
     findUser: "/users/",
+    updateMe: "/users/me",
   },
 };

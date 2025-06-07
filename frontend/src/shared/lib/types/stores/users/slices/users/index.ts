@@ -8,6 +8,7 @@ export type UsersState = {
 export type UsersActions = {
   setUsers: (users: IUser[]) => void;
   setCurrentUser: (user: IUser | null) => void;
+  updateUser: (id: number, user: IUser) => void;
 };
 
 export type UsersSlice = UsersState & UsersActions;

@@ -18,6 +18,7 @@
 
 .verified {
   width: 20px;
+  height: 20px;
 }
 
 .avatar {
@@ -42,4 +43,48 @@
   border-radius: 10px;
   width: 100%;
   color: $main-light;
+}
+
+.username {
+  display: flex;
+  align-items: center;
+}
+
+.verified {
+  margin-left: 5px;
+}
+
+.editInput {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid $main-red;
+  outline: none;
+  padding: 4px;
+  font-size: 20px;
+  background-color: transparent;
+  color: $main-red;
+}
+
+.bioText {
+  display: flex;
+}
+
+.bioContainer {
+  display: flex;
+}
+
+.edit {
+  margin-left: 5px;
+}
+
+.editTextarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid $main-red;
+  outline: none;
+  padding: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: $main-red;
+  font-weight: bold;
 }

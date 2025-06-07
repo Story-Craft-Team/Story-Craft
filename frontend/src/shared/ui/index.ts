@@ -6,3 +6,4 @@ export { default as CustomSelect } from "./CustomSelect";
 export { default as Modal } from "./Modal";
 export { default as RemoveSceneButton } from "./RemoveSceneButton";
 export { default as Submit } from "./Submit";
+export { default as NewModal } from "./newModal";

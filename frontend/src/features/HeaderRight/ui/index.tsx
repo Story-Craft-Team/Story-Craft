@@ -4,10 +4,10 @@ import Link from "next/link";
 import { FaUser } from "react-icons/fa";
 import { IoMdCreate, IoMdSettings } from "react-icons/io";
 import s from "./HeaderRight.module.scss";
-import { useUsersStore } from "@/shared/stores";
+import { useAuthStore } from "@/shared/stores/auth";
 
 export default function HeaderRight() {
-    const { isAuth, user } = useUsersStore();
+    const { isAuth, user } = useAuthStore();
     return (
       <div className={s.right}>
       <Link href="/editor/1">
