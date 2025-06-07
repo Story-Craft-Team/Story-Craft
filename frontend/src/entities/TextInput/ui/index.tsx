@@ -1,4 +1,4 @@
-import { useStore } from "@/shared/stores";
+import { useStoryEditorStore } from "@/shared/stores";
 import { useShallow } from "zustand/shallow";
 import s from "./TextInput.module.scss";
 
@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function TextInput({ id }: Props) {
-  // const { setSceneTitle } = useStore(
+  // const { setSceneTitle } = useStoryEditorStore(
   //   useShallow((state) => state)
   // );
 
@@ -19,7 +19,7 @@ export default function TextInput({ id }: Props) {
   //   <textarea
   //     className={s.text_input}
   //     placeholder="First scene of the story"
-  //     value={getSceneTitle(id)}
+  //     value={setSceneTitle(id)}
   //     onChange={onChange}
   //   ></textarea>
   // );

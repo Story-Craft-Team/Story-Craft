@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import styles from "./CustomCheckbox.module.scss";
+import s from "./CustomCheckbox.module.scss";
 
 interface CustomCheckboxProps {
   checked: boolean;
@@ -10,15 +10,15 @@ interface CustomCheckboxProps {
 
 const CustomCheckbox = ({ checked, onChange, label, icon }: CustomCheckboxProps) => {
   return (
-    <label className={styles.checkboxLabel}>
+    <label className={s.checkboxLabel}>
       <input
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className={styles.checkboxInput}
+        className={s.checkboxInput}
       />
-      <span className={`${styles.checkboxBox} ${checked ? styles.active : ""}`}>
-        {checked && <span className={styles.icon}>{icon}</span>}
+      <span className={`${s.checkboxBox} ${checked ? s.active : ""}`}>
+        {checked && <span className={s.icon}>{icon}</span>}
       </span>
       {label && <span>{label}</span>}
     </label>

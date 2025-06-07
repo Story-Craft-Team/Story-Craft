@@ -1,5 +1,6 @@
 "use client";
-import { IChoice, IScene } from "@/shared/lib/types";
+
+import { IChoice, IScene } from "@/shared/lib";
 import { CustomCheckbox } from "@/shared/ui";
 import { FaCheck } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";

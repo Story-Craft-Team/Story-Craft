@@ -1,12 +1,12 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import s from "./Login.module.scss";
 import { Submit } from "@/shared/ui";
 import { CustomInput } from "@/shared/ui";
 import { CustomForm } from "@/shared/ui";
-import { useLogin } from "@/shared/lib/hooks";
-import { setFormDataValue } from "@/shared/lib/helpers";
+import { useLogin } from "@/shared/lib";
+import { setFormDataValue } from "@/shared/lib";
 import Link from "next/link";
 
 export default function Login() {

@@ -1,4 +1,4 @@
-import { UserRoles, ISettings, UserPlan } from "@/shared/lib";
+import { UserRoles, UserPlan } from "@/shared/lib";
 
 export interface IUser {
   id: number;

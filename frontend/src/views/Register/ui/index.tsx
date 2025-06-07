@@ -1,11 +1,11 @@
 "use client";
 
-import { useRegistration } from "@/shared/lib/hooks";
+import { useRegistration } from "@/shared/lib";
 import { CustomForm, CustomInput, Submit } from "@/shared/ui";
 import { ChangeEvent, useState } from "react";
 import s from "./Registration.module.scss";
-import { IRegistrationSubmitData } from "@/shared/lib/types";
-import { setFormDataValue } from "@/shared/lib/helpers";
+import { IRegistrationSubmitData } from "@/shared/lib";
+import { setFormDataValue } from "@/shared/lib";
 import Link from "next/link";
 
 export default function Registration() {

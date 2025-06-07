@@ -3,11 +3,11 @@
 
 import { useEffect } from "react";
 import { me, updateUserJwt } from "@/shared/api/auth/queries";
-import { useAuthStore } from "@/shared/stores";
+import { useUsersStore } from "@/shared/stores";
 import { toast } from "react-toastify";
 
 export function useGlobalEffect() {
-  const { user, setUser, setIsAuth } = useAuthStore();
+  const { user, setUser, setIsAuth } = useUsersStore();
   // Fetch user by JWT
   useEffect(() => {
 
@@ -19,7 +19,6 @@ export function useGlobalEffect() {
         if (accessToken) {
           const meResponse = await me(accessToken);
           const user = meResponse.user;
-          console.log(user);
           setUser(user);
         }
       } catch (error) {
@@ -32,7 +31,6 @@ export function useGlobalEffect() {
         const refreshToken = localStorage.getItem("refreshToken");
         if (refreshToken) {
           const updateAccessToken = await updateUserJwt(refreshToken);
-          console.log(updateAccessToken);
           // localStorage.setItem("accessToken", updateAccessToken?.accessToken);
         }
       } catch (error) {
