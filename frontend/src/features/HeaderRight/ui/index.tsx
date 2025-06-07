@@ -16,7 +16,7 @@ export default function HeaderRight() {
       <Link href="/settings">
         <IoMdSettings />
       </Link>
-      <Link href={isAuth ? `/auth/account/${user?.id}` : "/auth/login"}>
+      <Link href={isAuth ? `/account/${user?.id}` : "/auth/login"}>
         <FaUser />
       </Link>
     </div>

@@ -6,4 +6,7 @@ export const API_ROUTES = {
     me: "/users/auth/me",
     updateUserJwt: "/users/auth/update-user-jwt",
   },
+  users: {
+    findUser: "/users/",
+  },
 };

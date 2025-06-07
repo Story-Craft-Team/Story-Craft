@@ -39,13 +39,17 @@ export class UserCrudService {
   }
 
   /**
-   * Find a user by ID
-   * @param id - The ID of the user to find
+   * Find a user by ID or username
+   * @param idOrUsername - The ID or username of the user to find
    * @returns The user
    */
-  async findOne(id: number): Promise<FindOneResponse> {
+  async findOne(idOrUsername: string): Promise<FindOneResponse> {
     try {
-      const user = await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
+      if (!isNaN(+idOrUsername)) {
+        const user = await this.helpers.getEntityOrThrow<User>('user', { id: +idOrUsername }, 'User');
+        return { user: this.userHelper.excludePassword(user) as UserWithoutPassword };
+      }
+      const user = await this.helpers.getEntityOrThrow<User>('user', { username: idOrUsername }, 'User');
       return { user: this.userHelper.excludePassword(user) as UserWithoutPassword };
     } catch (error) {
       throw error;
@@ -105,6 +109,22 @@ export class UserCrudService {
       await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
       await this.prisma.user.delete({ where: { id } });
       return { status: 200, message: 'User removed successfully' };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Update the current user
+   * @param dto - The update data
+   * @returns The updated user
+   */
+  updateMe(userId: number, updateUserId: number,dto: UpdateUserDto): Promise<UpdateResponse> {
+    try {
+      if (userId !== updateUserId) {
+        throw new BadRequestException('You are not allowed to update this user');
+      }
+      return this.update(updateUserId, dto);
     } catch (error) {
       throw error;
     }

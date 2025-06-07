@@ -2,19 +2,19 @@ import { create } from "zustand";
 import { devtools, persist, subscribeWithSelector, createJSONStorage } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { AuthSlice } from "@/shared/lib/types";
-import { authSlice } from "./slices";
+import { UsersSlice } from "@/shared/lib/types";
+import { usersSlice } from "./slices";
 
-export const useUsersStore = create<AuthSlice>()(
+export const useUsersStore = create<UsersSlice>()(
   devtools(
     persist(
       subscribeWithSelector(
         immer((...a) => ({
-          ...authSlice(...a),
+          ...usersSlice(...a),
         }))
       ),
       {
-        name: "auth-storage",
+        name: "users-storage",
         storage: createJSONStorage(() => localStorage),
       }
     )

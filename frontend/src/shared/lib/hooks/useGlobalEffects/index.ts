@@ -19,7 +19,6 @@ export function useGlobalEffect() {
         if (accessToken) {
           const meResponse = await me(accessToken);
           const user = meResponse.user;
-          console.log(user);
           setUser(user);
         }
       } catch (error) {

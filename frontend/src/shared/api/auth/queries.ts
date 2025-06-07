@@ -1,6 +1,7 @@
 import { axiosInstance } from "../client";
 import { API_ROUTES } from "../endpoints";
 import { AuthResponse } from "./types";
+import { toast } from "react-toastify";
 
 export const me = async (accessToken: string): Promise<AuthResponse> => {
   try {
@@ -11,7 +12,8 @@ export const me = async (accessToken: string): Promise<AuthResponse> => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    toast.error("Failed to get user");
     throw error;
   }
 };
@@ -21,10 +23,10 @@ export const updateUserJwt = async (refreshToken: string): Promise<Object> => {
     const response = await axiosInstance.post(API_ROUTES.auth.updateUserJwt, {
       refreshToken,
     });
-    console.log(response.data);
     return response.data.accessToken;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    toast.error("Failed to update JWT");
     throw error;
   }
 };

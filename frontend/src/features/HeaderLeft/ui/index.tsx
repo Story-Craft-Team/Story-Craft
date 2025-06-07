@@ -5,7 +5,7 @@ export default function HeaderLeft() {
   return (
       <Link href="/" className={s.left}>
           <h1>Story Craft</h1>
-          <p>The project in which you can create your own story!</p>
+          <p>Место, где ты можешь создать свою собственную историю!</p>
       </Link>
   )
 }
