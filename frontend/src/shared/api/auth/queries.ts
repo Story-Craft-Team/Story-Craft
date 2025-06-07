@@ -1,6 +1,7 @@
 import { axiosInstance } from "../client";
 import { API_ROUTES } from "../endpoints";
 import { AuthResponse } from "./types";
+import { toast } from "react-toastify";
 
 export const me = async (accessToken: string): Promise<AuthResponse> => {
   try {
@@ -20,7 +21,6 @@ export const updateUserJwt = async (refreshToken: string): Promise<Object> => {
     const response = await axiosInstance.post(API_ROUTES.auth.updateUserJwt, {
       refreshToken,
     });
-    console.log(response.data);
     return response.data.accessToken;
   } catch (error) {
     throw error;

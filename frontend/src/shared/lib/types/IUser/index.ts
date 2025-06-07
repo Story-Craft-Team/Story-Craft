@@ -16,11 +16,6 @@ export interface IUser {
   planCreatedAt?: Date;
 }
 
-export interface ILoginSubmitData {
-  username?: string;
-  password: string;
-}
-
 export interface IRegistrationSubmitData {
   email: string;
   username: string;

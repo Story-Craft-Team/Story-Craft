@@ -1,5 +1,5 @@
 import { ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { Body, Delete, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { Body, Delete, Get, Param, Patch, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -15,6 +15,7 @@ import {
   FindOneResponse,
   FindAllResponse,
 } from '../responses/user-crud.response';
+import { AuthRequest } from 'src/common/types';
 
 @ApiTags('User - crud')
 @Controller('users')
@@ -39,12 +40,12 @@ export class UserCrudController {
   }
 
   // Find one
-  @Get(':id')
-  @ApiOperation({ summary: 'Retrieve a single user by ID' })
-  @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
+  @Get(':idOrUsername')
+  @ApiOperation({ summary: 'Retrieve a single user by ID or username' })
+  @ApiParam({ name: 'idOrUsername', type: 'string', description: 'User ID or username' })
   @ApiResponse({
     status: 200,
-    description: 'Returns a user based on the provided ID',
+    description: 'Returns a user based on the provided ID or username',
     type: FindOneResponse,
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
@@ -52,8 +53,8 @@ export class UserCrudController {
     status: 404,
     description: 'User not found',
   })
-  findOne(@Param('id') id: string) {
-    return this.userCrudService.findOne(+id);
+  findOne(@Param('idOrUsername') idOrUsername: string) {
+    return this.userCrudService.findOne(idOrUsername);
   }
 
   // Update
@@ -102,5 +103,28 @@ export class UserCrudController {
   })
   remove(@Param('id') id: string): Promise<DeleteResponse> {
     return this.userCrudService.remove(+id);
+  }
+
+  // Update Me
+  @Patch('me')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update your profile' })
+  @ApiBody({ type: UpdateUserDto })
+  @ApiResponse({
+    status: 200,
+    description: 'User has been successfully updated.',
+    type: UpdateResponse,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'User not found',
+  })
+  updateMe(
+    @Request() req: AuthRequest,
+    @Param('updateUserId') updateUserId: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<UpdateResponse> {
+    return this.userCrudService.updateMe(+req.user.id, +updateUserId, updateUserDto);
   }
 }
