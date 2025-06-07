@@ -38,7 +38,6 @@ export class UserAuthController {
   // Login
   @Post('/login')
   @ApiOperation({ summary: 'Login a user' })
-  @KeepPassword()
   @ApiBody({ type: LoginUserDto })
   @ApiResponse({
     status: 200,
