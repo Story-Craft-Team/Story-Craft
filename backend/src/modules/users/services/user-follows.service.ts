@@ -3,7 +3,6 @@ import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { User } from '@prisma/client';
 import { UserFollowResponse } from '../responses/user-follows.response';
-import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 @Injectable()
@@ -11,7 +10,6 @@ export class UserFollowsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly helperService: HelpersService,
-    private readonly userHelpers: UserHelperService,
   ) {}
 
   /**
@@ -33,13 +31,11 @@ export class UserFollowsService {
 
       const users = follows.map((follow) => follow.followedUser);
 
-      const usersWithoutPassword = this.userHelpers.excludePassword(users) as UserWithoutPassword[];
-
       const followsWithoutPassword = follows.map((follow) => {
         const { ...rest } = follow;
         return {
           ...rest,
-          followedUser: usersWithoutPassword,
+          followedUser: users,
         };
       });
 
@@ -100,13 +96,11 @@ export class UserFollowsService {
 
       const users = follows.map((follow) => follow.followedUser);
 
-      const usersWithoutPassword = this.userHelpers.excludePassword(users) as UserWithoutPassword[];
-
       const followsWithoutPassword = follows.map((follow) => {
         const { ...rest } = follow;
         return {
           ...rest,
-          followedUser: usersWithoutPassword,
+          followedUser: users,
         };
       });
 
@@ -158,13 +152,11 @@ export class UserFollowsService {
 
       const users = follows.map((follow) => follow.followedUser);
 
-      const usersWithoutPassword = this.userHelpers.excludePassword(users) as UserWithoutPassword[];
-
       const followsWithoutPassword = follows.map((follow) => {
         const { ...rest } = follow;
         return {
           ...rest,
-          followedUser: usersWithoutPassword,
+          followedUser: users,
         };
       });
 

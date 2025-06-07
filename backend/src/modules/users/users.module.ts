@@ -8,7 +8,6 @@ import { UserFollowsService } from './services/user-follows.service';
 import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.service';
 import { UserAuthService } from './services/user-auth.service';
 import { AuthModule } from 'src/modules/deffault/auth/auth.module';
-import { UserHelperService } from '../deffault/helpers/services/user-helpers.service';
 import { UserAuthController } from './controllers/user-auth.controller';
 import { UserCrudController } from './controllers/user-crud.controller';
 import { UserOperationsController } from './controllers/user-operations.controller';
@@ -38,7 +37,6 @@ import { UserAuthHelperService } from '../deffault/helpers/services/user-auth.he
     UserFollowsService,
     BcryptService,
     UserAuthService,
-    UserHelperService,
     UserStoriesService,
     UserPlansService,
     GoogleStrategy,

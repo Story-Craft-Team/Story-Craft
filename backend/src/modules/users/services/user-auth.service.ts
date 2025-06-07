@@ -9,11 +9,9 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '@prisma/client';
 import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.service';
 import { AuthService } from 'src/modules/deffault/auth/services/auth.service';
-import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { LoginResponse } from '../responses/user-auth.response';
-import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 import { RegisterResponse } from '../responses/user-auth.response';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { JwtService } from '@nestjs/jwt';
@@ -24,7 +22,6 @@ export class UserAuthService {
     private readonly prisma: PrismaService,
     private readonly bcryptService: BcryptService,
     private readonly authService: AuthService,
-    private readonly userHelpers: UserHelperService,
     private readonly helpers: HelpersService,
     private readonly jwtService: JwtService,
   ) {}
@@ -79,9 +76,7 @@ export class UserAuthService {
           accessToken,
           refreshToken,
         },
-        user: this.userHelpers.excludePassword(
-          createdUser,
-        ) as UserWithoutPassword,
+        user: createdUser,
       };
     } catch (error) {
       throw error;
@@ -119,7 +114,7 @@ export class UserAuthService {
           accessToken,
           refreshToken,
         },
-        user: this.userHelpers.excludePassword(user) as UserWithoutPassword,
+        user
       };
     } catch (error) {
       throw error;
@@ -204,15 +199,14 @@ export class UserAuthService {
 
   async me(accessToken: string) {
     try {
-      const data = await this.prisma.user.findUnique({
+      const user = await this.prisma.user.findUnique({
         where: {
           id: this.jwtService.decode(accessToken).id,
         },
       });
 
-      const refreshToken = await this.authService.generateRefreshToken(data!);
+      const refreshToken = await this.authService.generateRefreshToken(user!);
 
-      const user = await this.userHelpers.excludePassword(data!);
       return {
         tokens: {
           accessToken,

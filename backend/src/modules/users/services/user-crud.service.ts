@@ -4,7 +4,6 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { Prisma, User } from '@prisma/client';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { BcryptService } from 'src/modules/deffault/bcrypt/services/bcrypt.service';
-import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 import { USER_INCLUDE } from 'src/common/constants';
 import {
   DeleteResponse,
@@ -12,7 +11,6 @@ import {
   FindOneResponse,
   FindAllResponse,
 } from '../responses/user-crud.response';
-import { UserWithoutPassword } from 'src/common/types/UserWithoutPassword';
 
 @Injectable()
 export class UserCrudService {
@@ -20,7 +18,6 @@ export class UserCrudService {
     private readonly prisma: PrismaService,
     private readonly helpers: HelpersService,
     private readonly bcryptService: BcryptService,
-    private readonly userHelper: UserHelperService,
   ) {}
 
   /**
@@ -32,7 +29,7 @@ export class UserCrudService {
       const users = await this.prisma.user.findMany({
         include: USER_INCLUDE,
       });
-      return { users: users.map((u) => this.userHelper.excludePassword(u)) as UserWithoutPassword[] };
+      return { users: users.map((u) => u )};
     } catch (error) {
       throw error;
     }
@@ -45,12 +42,8 @@ export class UserCrudService {
    */
   async findOne(idOrUsername: string): Promise<FindOneResponse> {
     try {
-      if (!isNaN(+idOrUsername)) {
-        const user = await this.helpers.getEntityOrThrow<User>('user', { id: +idOrUsername }, 'User');
-        return { user: this.userHelper.excludePassword(user) as UserWithoutPassword };
-      }
-      const user = await this.helpers.getEntityOrThrow<User>('user', { username: idOrUsername }, 'User');
-      return { user: this.userHelper.excludePassword(user) as UserWithoutPassword };
+      const user = await this.helpers.getEntityOrThrow<User>('user', { id }, 'User');
+      return { user };
     } catch (error) {
       throw error;
     }
@@ -93,7 +86,7 @@ export class UserCrudService {
       include: USER_INCLUDE,
     });
 
-    return { user: this.userHelper.excludePassword(updatedUser) as UserWithoutPassword};
+    return { user: updatedUser};
     } catch (error) {
       throw error;
     }

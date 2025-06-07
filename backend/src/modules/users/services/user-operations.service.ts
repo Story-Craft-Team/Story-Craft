@@ -2,14 +2,12 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { HelpersService } from 'src/modules/deffault/helpers/services/helpers.service';
 import { PrismaService } from 'src/modules/deffault/prisma/prisma.service';
 import { Role, User } from '@prisma/client';
-import { UserHelperService } from 'src/modules/deffault/helpers/services/user-helpers.service';
 
 @Injectable()
 export class UserOperationsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly helpers: HelpersService,
-    private readonly userHelper: UserHelperService,
   ) {}
 
   /**
@@ -30,7 +28,7 @@ export class UserOperationsService {
         data: { isVerified: true },
       });
 
-      return this.userHelper.excludePassword(updatedUser);
+      return updatedUser;
     } catch (error) {
       throw error;
     }
@@ -47,7 +45,7 @@ export class UserOperationsService {
         data: { role },
       });
 
-      return this.userHelper.excludePassword(updatedUser);
+      return updatedUser;
     } catch (error) {
       throw error;
     }
