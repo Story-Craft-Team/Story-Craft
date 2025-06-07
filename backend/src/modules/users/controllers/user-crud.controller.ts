@@ -106,7 +106,7 @@ export class UserCrudController {
   }
 
   // Update Me
-  @Patch('me')
+  @Patch('me/:updateUserId')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update your profile' })

@@ -26,3 +26,15 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+
+.passwordBlock {
+  position: relative;
+}
+
+.eyeIcon {
+  cursor: pointer;
+  position: absolute;
+  right: -30px;
+  top: 35%;
+}

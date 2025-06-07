@@ -21,3 +21,7 @@ export type AuthResponse = {
     refreshToken: string;
   };
 };
+
+export type UpdateUserJwtResponse = {
+  accessToken: string;
+};

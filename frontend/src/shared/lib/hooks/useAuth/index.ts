@@ -1,10 +1,10 @@
 import { useRouter } from "next/navigation";
 import {
-  IRegistrationSubmitData,
-  type ILoginSubmitData,
+  type IRegistrationSubmitData,
 } from "@/shared/lib";
 import { LoginDto, RegisterDto } from "@/shared/api/auth/types";
 import { register, login } from "@/shared/api/auth/mutations";
+import { useAuthStore } from "@/shared/stores/auth";
 
 const saveTokens = (tokens?: {
   accessToken?: string;
@@ -18,14 +18,16 @@ const saveTokens = (tokens?: {
 
 const useAuth = () => {
   const router = useRouter();
+  const { setUser } = useAuthStore();
 
-  const submitLogin = async (data: ILoginSubmitData) => {
+  const submitLogin = async (data: IRegistrationSubmitData) => {
     let { username, password } = data;
     const email = username?.includes("@") ? username : undefined;
-    if (email) username = undefined;
+    if (email) username = "";
     try {
       const response = await login({ username, email, password } as LoginDto);
       saveTokens(response?.tokens);
+      setUser(response?.user);
       router.push("/");
     } catch (error) {
       alert("Login failed");
@@ -48,6 +50,7 @@ const useAuth = () => {
         password,
       } as RegisterDto);
       saveTokens(response?.tokens);
+      setUser(response?.user);
       router.push("/");
     } catch (error) {
       alert("Registration failed");

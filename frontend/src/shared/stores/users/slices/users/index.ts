@@ -1,5 +1,6 @@
 import { UsersSlice, UsersStore } from "@/shared/lib";
 import { StateCreator } from "zustand";
+import { IUser } from "@/shared/lib/types";
 
 export const usersSlice: StateCreator<
   UsersStore,
@@ -17,5 +18,9 @@ export const usersSlice: StateCreator<
   }),
   setCurrentUser: (user) => set((state) => {
     state.currentUser = user;
+  }),
+  updateUser: (id: number, user: IUser) => set((state) => {
+    state.users = state.users.map((u) => (u.id === id ? { ...u, ...user } : u));
+    state.currentUser = { ...state.currentUser, ...user };
   }),
 });

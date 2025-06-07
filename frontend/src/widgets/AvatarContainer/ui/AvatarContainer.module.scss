@@ -1,45 +1,134 @@
-@use "@/app/(default)/styles/variables.scss" as *;  
-
-.container {
-  display: flex;
-}
+@use "@/app/(default)/styles/variables.scss" as *;
 
 .avatarContainer {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-direction: column;
-}
-
-.info {
-  margin-left: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.verified {
-  width: 20px;
+  gap: 10px;
 }
 
 .avatar {
-  width: 200px;
-  height: 200px;
-}
-
-.edit {
-  cursor: pointer;
-  color: $main-red;
-  font-size: 20px;
-  background-color: transparent;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid $main-light;
 }
 
 .editAvatar {
+  padding: 5px 10px;
+  background-color: $main-dark;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  color: $main-red;
-  font-size: 20px;
-  margin-top: 10px;
-  background-color: transparent;
-  background-color: $main-red;
-  border-radius: 10px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: darken($main-dark, 10%);
+  }
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
   width: 100%;
+  height: 100%;
+}
+
+.modalContent h3 {
+  margin: 0;
+  text-align: center;
+  color: inherit;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.avatarInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid $main-light;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: transparent;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: $main-light;
+  }
+}
+
+.editButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+
+  &:hover {
+    color: $main-light;
+  }
+}
+
+.modalButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.saveButton,
+.cancelButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.saveButton {
+  background-color: $main-red;
+  color: white;
+
+  &:hover {
+    background-color: darken($main-red, 10%);
+  }
+}
+
+.cancelButton {
+  background-color: $main-dark;
   color: $main-light;
+
+  &:hover {
+    background-color: darken($main-dark, 10%);
+  }
+}
+
+// Для темной темы
+[data-theme="dark"] {
+  .cancelButton {
+    background-color: lighten($main-dark, 10%);
+    color: $main-light;
+
+    &:hover {
+      background-color: lighten($main-dark, 15%);
+    }
+  }
+
+  .avatarInput {
+    border-color: $main-light;
+  }
 }
