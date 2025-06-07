@@ -1,4 +1,3 @@
-"use client";
 import { StoryHeader } from "@/features";
 import { StoryEditor } from "@/widgets";
 
