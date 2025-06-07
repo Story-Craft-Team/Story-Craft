@@ -12,8 +12,6 @@ export const me = async (accessToken: string): Promise<AuthResponse> => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
-    toast.error("Failed to get user");
     throw error;
   }
 };
@@ -25,8 +23,6 @@ export const updateUserJwt = async (refreshToken: string): Promise<Object> => {
     });
     return response.data.accessToken;
   } catch (error) {
-    console.error(error);
-    toast.error("Failed to update JWT");
     throw error;
   }
 };

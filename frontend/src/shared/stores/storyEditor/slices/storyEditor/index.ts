@@ -1,4 +1,4 @@
-import { IChoice, StoryEditorSlice, StoryEditorStore } from "@/shared/lib/types";
+import { IChoice, StoryEditorSlice, StoryEditorStore } from "@/shared/lib";
 import { StateCreator } from "zustand";
 
 export const storyEditorSlice: StateCreator<

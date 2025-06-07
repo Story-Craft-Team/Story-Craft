@@ -1,4 +1,4 @@
-import styles from "./AddChoiceButton.module.scss";
+import s from "./AddChoiceButton.module.scss";
 
 interface Props {
     onClick: () => void;
@@ -6,7 +6,7 @@ interface Props {
 
 export default function AddChoiceButton({ onClick }: Props) {
   return (
-    <button onClick={onClick} className={styles.addButton}>
+    <button onClick={onClick} className={s.addButton}>
       + Добавить выбор
     </button>
   );

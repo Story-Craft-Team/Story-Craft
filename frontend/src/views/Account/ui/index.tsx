@@ -1,11 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams } from "next/navigation";
-import { useUsersStore } from "@/shared/stores/users";
-import s from "./Account.module.scss";
-import { AccountInfo, AvatarContainer } from "@/widgets";
-import { fetchUserByIdOrUsername } from "@/shared/lib/helpers";
+import { useAuthStore } from "@/shared/stores";
 
 export default function AccountPage() {
   const { userIdOrUsername } = useParams();

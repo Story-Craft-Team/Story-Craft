@@ -1,3 +1,3 @@
 export * from "./storyEditor";
-export * from "./auth";
+export * from "./users";
 export * from "./settings";
