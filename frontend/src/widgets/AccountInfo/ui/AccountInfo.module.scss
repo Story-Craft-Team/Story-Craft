@@ -67,6 +67,10 @@
 
 .bioText {
   display: flex;
+  align-items: center;
+  max-width: 900px;
+  white-space: normal;
+  word-break: break-word; /* Жёсткий перенос, если слово не помещается */
 }
 
 .bioContainer {
