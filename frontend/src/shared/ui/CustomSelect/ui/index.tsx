@@ -2,12 +2,7 @@
 
 import React, { useState } from 'react';
 import s from './CustomSelect.module.scss'
-
-type SelectOption = {
-    content: string,
-    value: string,
-    disabled: boolean
-}
+import { SelectOption, useSelect } from '@/shared/lib';
 
 interface Props{
     options: SelectOption[];
@@ -16,8 +11,7 @@ interface Props{
 }
 
 export default function CustomSelect({options, defaultValue, onChange}: Props){
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [selected, setSelected] = useState<SelectOption>(defaultValue);
+    const {isOpen, setIsOpen, selected, setSelected} = useSelect(defaultValue)
 
     return (
         <div className={s.customSelectWrapper}>
