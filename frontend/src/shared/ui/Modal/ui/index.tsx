@@ -1,15 +1,14 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import s from "./modalWindow.module.scss";
-import { useSettingsStore } from "@/shared/stores";
+import { useModal } from "@/shared/lib";
 
 interface Props {
   children: ReactNode;
 }
 
 export default function Modal({ children }: Props) {
-  const [windowIsVisible, setWindowVisible] = useState<boolean>(true);
-  const theme = useSettingsStore((state) => state.theme);
-
+  const { windowIsVisible, setWindowVisible, theme } = useModal()
+  
   return (
     <div
       className={windowIsVisible ? s.modalOverlay : s.containerUnVisible}
@@ -25,6 +24,7 @@ export default function Modal({ children }: Props) {
               : s.containerVisibleLight
             : s.containerUnVisible
         }
+        onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>

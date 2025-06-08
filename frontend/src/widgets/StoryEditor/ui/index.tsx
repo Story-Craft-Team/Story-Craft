@@ -1,3 +1,5 @@
+'use client'
+
 import s from "./StoryEditor.module.scss";
 import { SaveStory, PublicStory, PrivateStory, SceneGenerator } from "@/features";
 
