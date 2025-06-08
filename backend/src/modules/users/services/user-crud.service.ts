@@ -29,7 +29,7 @@ export class UserCrudService {
       const users = await this.prisma.user.findMany({
         include: USER_INCLUDE,
       });
-      return { users: users.map((u) => u )};
+      return { users: users.map((u) => u) };
     } catch (error) {
       throw error;
     }
@@ -42,7 +42,13 @@ export class UserCrudService {
    */
   async findOne(idOrUsername: string): Promise<FindOneResponse> {
     try {
-      const user = await this.helpers.getEntityOrThrow<User>('user', { idOrUsername }, 'User');
+      const user = await this.helpers.getEntityOrThrow<User>(
+        'user',
+        isNaN(+idOrUsername)
+          ? { username: idOrUsername }  // Search by username
+          : { id: +idOrUsername },     // Search by ID (direct number)
+        'User',
+      );
       return { user };
     } catch (error) {
       throw error;
@@ -62,31 +68,31 @@ export class UserCrudService {
       const { settings, password, ...rest } = dto;
 
       const data: Prisma.UserUncheckedUpdateInput = {
-      ...rest,
-      settings: settings && {
-        upsert: {
-          update: settings,
-          create: settings,
+        ...rest,
+        settings: settings && {
+          upsert: {
+            update: settings,
+            create: settings,
+          },
         },
-      },
-      updatedAt: new Date(),
-    };
+        updatedAt: new Date(),
+      };
 
-    if (password) {
-      data.password = await this.bcryptService.hashPassword(password);
-    }
+      if (password) {
+        data.password = await this.bcryptService.hashPassword(password);
+      }
 
-    const cleanData = Object.fromEntries(
-      Object.entries(data).filter(([_, value]) => value !== undefined),
-    );
+      const cleanData = Object.fromEntries(
+        Object.entries(data).filter(([_, value]) => value !== undefined),
+      );
 
-    const updatedUser = await this.prisma.user.update({
-      where: { id },
-      data: cleanData,
-      include: USER_INCLUDE,
-    });
+      const updatedUser = await this.prisma.user.update({
+        where: { id },
+        data: cleanData,
+        include: USER_INCLUDE,
+      });
 
-    return { user: updatedUser};
+      return { user: updatedUser };
     } catch (error) {
       throw error;
     }
@@ -112,10 +118,16 @@ export class UserCrudService {
    * @param dto - The update data
    * @returns The updated user
    */
-  updateMe(userId: number, updateUserId: number,dto: UpdateUserDto): Promise<UpdateResponse> {
+  updateMe(
+    userId: number,
+    updateUserId: number,
+    dto: UpdateUserDto,
+  ): Promise<UpdateResponse> {
     try {
       if (userId !== updateUserId) {
-        throw new BadRequestException('You are not allowed to update this user');
+        throw new BadRequestException(
+          'You are not allowed to update this user',
+        );
       }
       return this.update(updateUserId, dto);
     } catch (error) {
