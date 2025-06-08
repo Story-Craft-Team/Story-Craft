@@ -1,6 +1,6 @@
 import { UsersSlice, UsersStore } from "@/shared/lib";
 import { StateCreator } from "zustand";
-import { IUser } from "@/shared/lib/types";
+import { IUser, IAccountInfoState } from "@/shared/lib/types";
 
 export const usersSlice: StateCreator<
   UsersStore,
@@ -11,6 +11,12 @@ export const usersSlice: StateCreator<
   // State
   users: [],
   currentUser: null,
+  accountInfoState: {
+    usernameIsEditting: false,
+    bioIsEditting: false,
+    usernameValue: "",
+    bioValue: "",
+  },
 
   // Actions
   setUsers: (users) => set((state) => {
@@ -22,5 +28,9 @@ export const usersSlice: StateCreator<
   updateUser: (id: number, user: IUser) => set((state) => {
     state.users = state.users.map((u) => (u.id === id ? { ...u, ...user } : u));
     state.currentUser = { ...state.currentUser, ...user };
+  }),
+
+  updateAccountInfoState: (accountInfoState: IAccountInfoState) => set((state) => {
+    state.accountInfoState = accountInfoState;
   }),
 });

@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import {
   type IRegistrationSubmitData,
@@ -5,6 +7,7 @@ import {
 import { LoginDto, RegisterDto } from "@/shared/api/auth/types";
 import { register, login } from "@/shared/api/auth/mutations";
 import { useAuthStore } from "@/shared/stores/auth";
+import { toast } from "react-toastify";
 
 const saveTokens = (tokens?: {
   accessToken?: string;
@@ -26,34 +29,39 @@ const useAuth = () => {
     if (email) username = "";
     try {
       const response = await login({ username, email, password } as LoginDto);
+      if (!response) throw new Error("Login failed");
       saveTokens(response?.tokens);
       setUser(response?.user);
       router.push("/");
     } catch (error) {
-      alert("Login failed");
+      console.error(error);
     }
   };
 
   const submitRegistration = async (data: IRegistrationSubmitData) => {
     const { username, password, rePassword, email } = data;
 
-    if (password !== rePassword) return alert("Passwords do not match");
+    if (password !== rePassword) return toast.error("Пароли не совпадают");
     if (password.length < 6)
-      return alert("Password must be at least 6 characters long");
+      return toast.error("Пароль должен содержать не менее 6 символов");
     if (username.includes(" "))
-      return alert("Username must not contain spaces");
-
+      return toast.error("Логин не должен содержать пробелы");
+    if (username.length < 3)
+      return toast.error("Логин должен содержать не менее 3 символов");
+    if (!email.includes("@"))
+      return toast.error("Email должен содержать символ @");
     try {
       const response = await register({
         username,
         email,
         password,
       } as RegisterDto);
+      if (!response?.user) throw new Error("Registration failed");
       saveTokens(response?.tokens);
       setUser(response?.user);
       router.push("/");
     } catch (error) {
-      alert("Registration failed");
+      console.error(error);
     }
   };
 
