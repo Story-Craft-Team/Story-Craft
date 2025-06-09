@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "@/app/(default)/styles/variables.scss" as *;
 
 .avatarContainer {
@@ -26,7 +27,7 @@
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: darken($main-dark, 10%);
+    background-color: color.adjust($main-dark, $lightness: -10%);
   }
 }
 
@@ -104,7 +105,7 @@
   color: white;
 
   &:hover {
-    background-color: darken($main-red, 10%);
+    background-color: color.adjust($main-red, $lightness: -10%);
   }
 }
 
@@ -113,18 +114,18 @@
   color: $main-light;
 
   &:hover {
-    background-color: darken($main-dark, 10%);
+    background-color: color.adjust($main-dark, $lightness: -10%);
   }
 }
 
 // Для темной темы
 [data-theme="dark"] {
   .cancelButton {
-    background-color: lighten($main-dark, 10%);
+    background-color: color.adjust($main-dark, $lightness: 10%);
     color: $main-light;
 
     &:hover {
-      background-color: lighten($main-dark, 15%);
+      background-color: color.adjust($main-dark, $lightness: 15%);
     }
   }
 
