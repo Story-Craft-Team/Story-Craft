@@ -1,0 +1,27 @@
+@use "@/app/(default)/styles/variables.scss" as *;
+
+.container {
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 1rem 0.6rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: $main-red;
+}
+
+.titleRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.questionBody{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}

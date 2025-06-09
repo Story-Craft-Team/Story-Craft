@@ -1,7 +1,7 @@
 "use client";
 import { StoryHeader } from "@/features";
 
-export default function ReadPage() {
+export default function StoryReadPage() {
 
   return (
       <StoryHeader  />

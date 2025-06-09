@@ -1,0 +1,10 @@
+.storiesSort{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-around;
+  padding-left: 75px;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 180px;
+  margin-top: 15px;
+}

@@ -10,4 +10,7 @@ export const API_ROUTES = {
     findUser: "/users/",
     updateMe: "/users/me",
   },
+  stories: {
+    AllStories: "/stories"
+  },
 };

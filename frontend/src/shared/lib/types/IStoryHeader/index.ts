@@ -1,13 +1,14 @@
-import { IScene } from "../";
+import { IScene } from "../IScene";
 
-export interface IStoryEditor {
+export interface IStoryHeader {
   id: number | null;
   title: string | null;
   description: string | null;
   image: string | null;
-  authorId: string | null;
+  authorId: number | null;
   createdAt: string | null;
   updatedAt: string | null;
   isPublic: boolean;
+  author: string;
   scenes: IScene[];
 }
