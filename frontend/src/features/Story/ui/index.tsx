@@ -1,15 +1,21 @@
 import s from "./Story.module.scss";
 import Link from "next/link";
 
-export default function Story() {
+interface Props{
+	id: number,
+	title: string,
+	author: string
+}
+
+export default function Story({ id, title, author }: Props) {
 	return (
 		<div className={s.story}>
-			<Link href="/read/1">
-				<h1 className={s.title}>The title of the Story</h1>
-				<p className={s.author}>Author: Redefined</p>
-				<p className={s.grade}>Grade: 4/5</p>
-				<img className={s.img} src="/bg.jfif" alt="" />
-			</Link>
+			<img className={s.img} src="/story.jfif" alt="" />
+			<h1 className={s.title}>{title}</h1>
+			<p className={s.author}>Автор: <u>{author}</u></p>
+			<p className={s.grade}>4.7/5</p>
+			<p className={s.reviews}>475 отзывов</p>
+			<Link href={`read/${id}`}><button className={s.btn}>Читать</button></Link>
 		</div>
 	);
 }

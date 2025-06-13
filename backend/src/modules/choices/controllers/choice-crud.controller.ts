@@ -23,7 +23,7 @@ import {
   DeleteResponse,
 } from '../responses/choice-crud.response';
 @ApiTags('Choice - crud')
-@Controller('/stories/:id/scenes/:id/choices')
+@Controller('/stories/:storyId/scenes/:sceneId/choices')
 export class ChoiceCrudController {
   constructor(private readonly choiceCrudService: ChoiceCrudService) {}
 
@@ -38,6 +38,8 @@ export class ChoiceCrudController {
     description: 'Choice has been successfully created.',
     type: CreateResponse,
   })
+  @ApiParam({ name: 'storyId', type: 'string', description: 'Story id' })
+  @ApiParam({ name: 'sceneId', type: 'string', description: 'Scene id' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   create(
     @Param('storyId') storyId: string,

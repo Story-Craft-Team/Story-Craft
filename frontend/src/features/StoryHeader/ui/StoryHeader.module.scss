@@ -1,3 +1,4 @@
+@use "@/app/(default)/styles/variables.scss" as *;
 .container {
   background: #2a2a2a;
   border-radius: 8px;
@@ -10,9 +11,65 @@
 .titleRow {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  justify-items: center;
   gap: 1.5rem;
   flex-wrap: wrap;
+}
+
+.titleText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $main-red; /* оранжевый акцент */
+  margin: 0;
+}
+
+.scenesCount{
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: $main-red; /* оранжевый акцент */
+}
+
+.description{
+  color: $main-red;
+  margin-left: 10px;
+}
+
+.btn{
+  color: $main-red;
+  width: 600px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: $main-dark;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.btn:hover{
+  cursor: pointer;
+}
+
+.btnContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.img{
+  width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+.imgContainer{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .inputGroup {
@@ -42,38 +99,12 @@
 }
 
 .titleInput:focus,
-.description:focus {
+.description_edit:focus {
   outline: 2px solid #ff5722;
   outline-offset: 2px;
 }
 
-.titleText {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #ff5722; /* оранжевый акцент */
-  margin: 0;
-}
-
-.sceneCount {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ff5722; /* оранжевый акцент */
-  white-space: nowrap;
-  margin-bottom: 0.7rem;
-  padding-right: 2rem;
-}
-
-.sceneCount_read {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #ff5722; /* оранжевый акцент */
-  white-space: nowrap;
-  margin-bottom: 0rem;
-  padding-right: 2rem;
-}
-
-
-.description {
+.description_edit {
   width: 100%;
   min-height: 80px;
   padding: 0.5rem;

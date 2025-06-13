@@ -11,10 +11,10 @@ import { ScenesModule } from './modules/scenes/scenes.module';
 import { ChoicesModule } from './modules/choices/choices.module';
 @Module({
   imports: [
+    AuthModule,
     PrismaModule,
     UsersModule,
     HelpersModule,
-    AuthModule,
     BcryptModule,
     StoriesModule,
     ScenesModule,

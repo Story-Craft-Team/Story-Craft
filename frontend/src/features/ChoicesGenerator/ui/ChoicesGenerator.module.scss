@@ -1,0 +1,8 @@
+.answersBody{
+    margin-top: 50px;
+    margin-bottom: 15px;
+    display: grid;
+    gap: 30px 10px;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+}

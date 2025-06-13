@@ -1,4 +1,4 @@
-import { Get, Patch, Post, Req, Request, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Get, Post, Req, Request, Res, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
@@ -6,11 +6,10 @@ import { Body } from '@nestjs/common';
 import { UserAuthService } from '../services/user-auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller } from '@nestjs/common';
-import { RegisterResponse, LoginResponse, LogoutResponse, MeResponse, RefreshTokenResponse } from '../responses/user-auth.response';
+import { RegisterResponse, LoginResponse, LogoutResponse, MeResponse } from '../responses/user-auth.response';
 import { GoogleAuthGuard } from 'src/common/guards/google-auth.guard';
 import { JwtAuthGuard } from 'src/modules/deffault/auth/guards/jwt-auth.guard';
 import { UserAuthHelperService } from 'src/modules/deffault/helpers/services/user-auth.helpers.service';
-import { KeepPassword } from 'src/modules/deffault/auth/decorators/keepPassword.decorator';
 
 @ApiTags('User - auth')
 @Controller('users/auth')
@@ -84,6 +83,7 @@ export class UserAuthController {
     type: MeResponse
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get("me")
   me(@Request() req){

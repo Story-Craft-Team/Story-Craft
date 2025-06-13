@@ -1,7 +1,6 @@
 import { ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '@prisma/client';
-import { UserAuthService } from 'src/modules/users/services/user-auth.service';
 import { UserAuthHelperService } from '../../helpers/services/user-auth.helpers.service';
 
 @Injectable()
