@@ -9,11 +9,11 @@ import { IScene } from '@/shared/lib';
 
 export default function StoryReader(){
     const pathname = usePathname();
-    const { getScene } = useScene()
-    const [ scene, setScene ] = useState<IScene | null>(null)
+    const { getScene, scene } = useScene()
 
     useEffect(() => {
-        setScene(getScene())
+        getScene()
+        console.log(scene)
     }, [pathname]);
 
     if(scene === null){
@@ -25,7 +25,7 @@ export default function StoryReader(){
     return (
         <div className={s.container}>
             <div className={s.titleRow}>
-                <h2>Печальная история в маинкрафт</h2>
+                <h2> Название истории </h2>
                 <h2>Сцена: {scene.id}</h2>
             </div>
             <div className={s.questionBody}>

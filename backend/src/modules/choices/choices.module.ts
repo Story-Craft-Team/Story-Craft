@@ -6,6 +6,7 @@ import { ChoiceCrudController } from './controllers/choice-crud.controller';
 import { ChoiceCrudService } from './services/choice-crud.service';
 import { ChoiceOperationsService } from './services/choice-operations.service';
 import { ChoiceOperationsController } from './controllers/choice-operations.controller';
+import { HelpersService } from '../deffault/helpers/services/helpers.service';
 @Module({
   imports: [HelpersModule, PrismaModule],
   controllers: [
@@ -13,6 +14,7 @@ import { ChoiceOperationsController } from './controllers/choice-operations.cont
     ChoiceOperationsController,
   ],
   providers: [
+    HelpersService,
     PrismaService,
     ChoiceCrudService,
     ChoiceOperationsService,

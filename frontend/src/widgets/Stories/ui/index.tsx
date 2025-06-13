@@ -2,16 +2,14 @@
 
 import { StoriesGenerator, StoriesSort } from "@/features";
 import s from "./Stories.module.scss";
-import { useEffect, useState } from "react";
 import { useStories } from "@/shared/lib/hooks/useStories";
-import { IStoryHeader } from "@/shared/lib";
+import { useEffect } from "react";
 
 export default function Stories() {
-	const [stories, setStories] = useState<IStoryHeader[] | null>(null)
-	const { getAllStories } = useStories()
+	const { getStories, stories } = useStories()
 
 	useEffect(() => {
-		setStories(getAllStories)
+		getStories()
 	}, [])
 
 	return (

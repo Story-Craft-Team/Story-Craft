@@ -11,6 +11,6 @@ export const API_ROUTES = {
     updateMe: "/users/me",
   },
   stories: {
-    AllStories: "/stories"
+    AllStories: "/stories",
   },
 };

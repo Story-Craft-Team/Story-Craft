@@ -9,6 +9,5 @@ export interface IStoryHeader {
   createdAt: string | null;
   updatedAt: string | null;
   isPublic: boolean;
-  author: string;
   scenes: IScene[];
 }
