@@ -1,4 +1,6 @@
+import { ILike } from "../ILike";
 import { IScene } from "../IScene";
+import { IView } from "../IView";
 
 export interface IStoryHeader {
   id: number | null;
@@ -9,5 +11,7 @@ export interface IStoryHeader {
   createdAt: string | null;
   updatedAt: string | null;
   isPublic: boolean;
+  authorName: string | null;
   scenes: IScene[];
+  sortValue?: number;
 }

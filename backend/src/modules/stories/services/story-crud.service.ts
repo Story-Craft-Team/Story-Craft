@@ -17,7 +17,7 @@ export class StoryCrudService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly helpers: HelpersService,
-  ) {}
+  ) { }
 
   // Create Story
   async create(
@@ -29,14 +29,27 @@ export class StoryCrudService {
       if (!createStoryDto.title) {
         throw new BadRequestException('Title is required');
       }
-      
+
+      const author = await this.prisma.user.findUnique({
+        where: {
+          id: authorId
+        }
+      })
+
+      if (!author) {
+        throw new NotFoundException('Author not found');
+      }
+
+      const authorName = author?.username
+
       const story = await this.prisma.story.create({
         data: {
           ...createStoryDto,
           authorId,
+          authorName
         },
       });
-      
+
       return { story };
     } catch (error) {
       throw error;
@@ -64,6 +77,28 @@ export class StoryCrudService {
       return { story };
     } catch (error) {
       throw error;
+    }
+  }
+
+  async AllStoriesByLimit(
+    options?: {page: number, limit: number}
+  ): Promise<FindAllResponse>  {
+    const page = Number(options!.page) || 1;
+    const limit = Number(options?.limit) || 6;
+    const skip = (page - 1) * limit;
+
+    try {
+      const stories = await 
+        this.prisma.story.findMany({
+          skip,
+          take: limit
+        });
+
+      return {
+        stories
+      };
+    } catch (error) {
+      throw new Error(`Failed to fetch stories: ${error.message}`);
     }
   }
 
@@ -148,7 +183,7 @@ export class StoryCrudService {
       await this.helpers.getEntityOrThrow('story', { id }, 'Story');
 
       const deletedStory = await this.prisma.story.delete({ where: { id } });
-      
+
       return { story: deletedStory };
     } catch (error) {
       throw error;

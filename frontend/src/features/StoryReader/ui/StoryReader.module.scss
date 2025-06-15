@@ -1,28 +1,69 @@
-@use "@/app/(default)/styles/variables.scss" as *;
-
 .container {
-    background: #2a2a2a;
-    border-radius: 8px;
-    padding: 1rem;
-    margin: 1rem 1rem 0.6rem 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    color: $main-red;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 71, 87, 0.2);
+  color: #f0f0f0;
 }
 
-.titleRow{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    justify-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 71, 87, 0.3);
+
+  h2 {
+    font-size: 1.8rem;
+    color: #ff4757;
+    margin: 0;
+    
+    &:first-child {
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: #ff4757;
+        border-radius: 3px;
+      }
+    }
+    
+    &:last-child {
+      font-size: 1.3rem;
+      color: rgba(240, 240, 240, 0.8);
+      background: rgba(255, 71, 87, 0.15);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+    }
+  }
 }
 
-.questionBody{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    justify-content: center;
-    text-align: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+.questionBody {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  border-left: 4px solid #ff4757;
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #ff4757;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(240, 240, 240, 0.9);
+    font-weight: 400;
+  }
 }

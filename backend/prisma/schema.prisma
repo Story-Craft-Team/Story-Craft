@@ -24,6 +24,7 @@ model User {
   followedUsers  Follow[]      @relation("UserFollowing")
   followingUsers Follow[]      @relation("UserFollowed")
   likedStories   Like[]        @relation("UserLikes")
+  viewedStories  View[]        @relation("UserViews")
   plan Plan @default(free)
   planWillDeleteAt DateTime?
   planCreatedAt DateTime @default(now())
@@ -40,8 +41,21 @@ model Story {
   isPublic    Boolean  @default(false)
   scenes      Scene[]
   choices     Choice[]
+  authorName  String
   author      User     @relation("UserStories", fields: [authorId], references: [id], onDelete: Cascade)
   likedBy     Like[]   @relation("StoryLikes")
+  viewedBy    View[] @relation("StoryViews")
+}
+
+model View{
+  id      Int @id @default(autoincrement())
+  userId  Int
+  storyId Int
+
+  user  User  @relation("UserViews", fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation("StoryViews", fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, storyId])
 }
 
 model Like {

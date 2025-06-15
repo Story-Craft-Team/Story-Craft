@@ -31,7 +31,6 @@ export class ChoiceCrudService {
         storyId,
         sceneId,
       };
-
       const createdChoice = await this.prisma.choice.create({
         data: newChoice,
       });

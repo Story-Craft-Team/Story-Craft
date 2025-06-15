@@ -1,22 +1,30 @@
+'use client'
+
 import React from 'react';
 import s from './StoriesGenerator.module.scss'
 import { Story } from '@/features';
 import { IStoryHeader } from '@/shared/lib';
+import { PaginationButtons } from '@/shared/ui';
 
-interface Props{
-    stories: IStoryHeader[] | null
+interface Props {
+    sortedStories: IStoryHeader[] | null;
+    fetchStoriesByLimit: (page?: number, limit?: number) => Promise<void>;
 }
 
-export default function StoriesGenerator({ stories }: Props){
-
-    if(stories === null){
-        return(
+export default function StoriesGenerator({ sortedStories,fetchStoriesByLimit }: Props) {
+    if (!sortedStories) {
+        return (
             <h1>Loading...</h1>
         );
     }
+
     return (
-        <div className={s.stories}>
-			{stories.map((story, index) => <Story key={index + 1} id={story.id!} title={story.title!} author={story.author}/>)}
-		</div>
+        <>
+            <div className={s.stories}>
+                {sortedStories.map(story => <Story image={story.image!} key={story.id} id={story.id!} title={story.title!} author={story.authorName!} />)}
+            </div>
+            <PaginationButtons fetchStoriesByLimit={fetchStoriesByLimit}/>
+        </>
     );
+
 };

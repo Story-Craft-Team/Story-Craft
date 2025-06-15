@@ -1,15 +1,37 @@
-.left {
-  text-align: center;
-  margin-top: -10px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  h1 {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 0;
+.brandSlogan {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  position: relative;
+  padding-left: 15px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 2px;
+    background: #ff4757;
+    opacity: 0.6;
   }
+}
 
-  p {
-    font-size: 17px;
-    margin: 0;
+.brandLogo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff4757;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+
+  &:hover {
+    transform: scale(1.5);
+    text-shadow: 0 0 15px rgba(255, 71, 87, 0.8);
   }
 }

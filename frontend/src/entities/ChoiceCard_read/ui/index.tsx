@@ -9,12 +9,12 @@ interface Props{
     nextSceneId: number;
 }
 
-export default function ReadChoiceCard({ access, children, nextSceneId, StoryId}: Props){
+export default function ReadChoiceCard({ access, children, nextSceneId, StoryId }: Props){
     const { nextSceneLoad } = useChoice()
     return (
         <div 
             data-value={nextSceneId}
-            className={access? s.hasAccess : s.noneAccess}
+            className={`${s.choice} ${access? s.hasAccess : s.noneAccess}`}
             onClick={() => nextSceneLoad(StoryId, nextSceneId) }
         >
             {children}

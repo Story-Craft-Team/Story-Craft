@@ -1,10 +1,21 @@
-.storiesSort{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-content: space-around;
-  padding-left: 75px;
-  align-items: center;
+.storiesSort {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px 40px;
   box-sizing: border-box;
-  gap: 180px;
-  margin-top: 15px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 40px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+  }
 }
