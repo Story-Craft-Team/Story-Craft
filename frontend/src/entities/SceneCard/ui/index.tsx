@@ -11,6 +11,7 @@ import { FaCheck } from "react-icons/fa";
 import { useShallow } from "zustand/react/shallow";
 import styles from "./SceneCard.module.scss";
 import { useStoryEditorStore } from "@/shared/stores";
+import { useCallback, useEffect } from "react";
 
 interface SceneProps {
   scene: IScene;
@@ -28,6 +29,12 @@ export default function SceneCard({ scene }: SceneProps) {
   } = useStoryEditorStore(
     useShallow((state) => state)
   );
+
+  useEffect(() => {
+    if (scene.isEnd) {
+      setSceneMaxChoices(scene.id, 0);
+    }
+  }, [scene.isEnd, scene.id, setSceneMaxChoices]);
 
   return (
     <div className={styles.container}>
@@ -60,11 +67,11 @@ export default function SceneCard({ scene }: SceneProps) {
 
         <label className={styles.selectLabel}>
           Количество выборов:
-          <select
+          {!scene.isEnd ? <select
             value={scene.maxChoices}
-            onChange={(e) =>
+            onChange={(e) => {
               setSceneMaxChoices(scene.id, parseInt(e.target.value))
-            }
+            }}
             className={styles.select}
           >
             {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -72,11 +79,13 @@ export default function SceneCard({ scene }: SceneProps) {
                 {num}
               </option>
             ))}
-          </select>
+          </select> : (<>
+            <p> {0} </p>
+          </>)}
         </label>
       </div>
 
-      {scene.choices.map((choice, index) => (
+      {!scene.isEnd && scene.choices.map((choice, index) => (
         <ChoiceCard
           scene={scene}
           choice={choice}
@@ -90,7 +99,7 @@ export default function SceneCard({ scene }: SceneProps) {
       )}
 
       <div className={styles.footer}>
-        <RemoveSceneButton onClick={() => removeScene(scene.id)}/>
+        <RemoveSceneButton onClick={() => removeScene(scene.id)} />
       </div>
     </div>
   );

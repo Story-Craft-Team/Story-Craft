@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Scene } from "@prisma/client";
+import { IsArray, IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
 
 export class CreateStoryDto {
 

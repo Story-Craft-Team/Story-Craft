@@ -7,3 +7,4 @@ export { default as Modal } from "./Modal";
 export { default as RemoveSceneButton } from "./RemoveSceneButton";
 export { default as Submit } from "./Submit";
 export { default as NewModal } from "./newModal";
+export { default as PaginationButtons } from "./PaginationButton";

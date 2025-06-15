@@ -16,7 +16,7 @@ export class ExcludePasswordInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       map(data => {
-        if (keepPassword) return data;
+        if (keepPassword || !data || !data.user) return data;
         
         const { password, ...user } = data.user
         return {

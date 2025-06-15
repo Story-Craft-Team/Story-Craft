@@ -8,6 +8,8 @@ import { StoryOperationsController } from './controllers/story-operations.contro
 import { StoryOperationsService } from './services/story-operations.service';
 import { StoryLikesController } from './controllers/story-likes.controller';
 import { StoryLikesService } from './services/story-likes.service';
+import { StoryViewsController } from './controllers/story-views.controller';
+import { StoryViewsService } from './services/story-views.service';
 
 @Module({
   imports: [HelpersModule, PrismaModule],
@@ -15,12 +17,14 @@ import { StoryLikesService } from './services/story-likes.service';
     StoryCrudController,
     StoryOperationsController,
     StoryLikesController,
+    StoryViewsController
   ],
   providers: [
     PrismaService,
     StoryCrudService,
     StoryOperationsService,
     StoryLikesService,
+    StoryViewsService
   ],
 })
 export class StoriesModule {}

@@ -1,5 +1,5 @@
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Param, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Param, Query, UseGuards } from '@nestjs/common';
 import { StoryCrudService } from '../services/story-crud.service';
 import { Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
@@ -33,6 +33,21 @@ export class StoryCrudController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   create(@Request() req: AuthRequest, @Body() createStoryDto: CreateStoryDto) {
     return this.storyCrudService.create(+req.user.id, createStoryDto);
+  }
+
+  @Get('/paginated')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Retrieve all stories by limit' })
+  @ApiResponse({
+    status: 201,
+    description: 'Returns a list of stories by limit.',
+  })
+  @ApiResponse({ status: 400, description: 'Bad rqeuest' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  findAllByLimit(@Query('page') page: number = 1, @Query('limit') limit: number = 6,) {
+    return this.storyCrudService.AllStoriesByLimit({page, limit});
   }
 
   // Find all stories

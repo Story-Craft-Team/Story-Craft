@@ -10,7 +10,9 @@ import {
   UpdateResponse,
 } from '../responses/choice-crud.response';
 import { UpdateChoiceDto } from '../dto/update-choice.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ChoiceCrudService {
   constructor(
     private readonly prisma: PrismaService,
@@ -29,7 +31,6 @@ export class ChoiceCrudService {
         storyId,
         sceneId,
       };
-
       const createdChoice = await this.prisma.choice.create({
         data: newChoice,
       });

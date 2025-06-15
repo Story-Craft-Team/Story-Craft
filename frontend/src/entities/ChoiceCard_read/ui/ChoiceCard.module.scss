@@ -1,0 +1,136 @@
+.choiceContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin: 4rem auto;
+    justify-content: center;
+}
+
+.choice {
+    padding: 1.5rem 1.8rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-align: center;
+    min-width: 250px;
+    flex: 0 1 220px;
+    min-height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.hasAccess {
+    background: linear-gradient(135deg,
+            rgba(255, 80, 90, 0.7) 0%,
+            rgba(255, 60, 70, 0.6) 100%
+        );
+    color: white;
+    box-shadow:
+        0 4px 15px rgba(255, 71, 87, 0.3),
+        0 2px 5px rgba(255, 71, 87, 0.4);
+
+
+    position: relative;
+    overflow: hidden;
+
+    &:hover::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 70%);
+        transform: scale(0);
+        opacity: 1;
+        animation: ripple 2s infinite ease;
+    }
+
+    &:hover {
+        background: linear-gradient(135deg,
+                rgba(255, 90, 100, 0.8) 0%,
+                rgba(255, 70, 80, 0.7) 100%);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow:
+            0 8px 25px rgba(255, 71, 87, 0.5),
+            0 4px 10px rgba(255, 71, 87, 0.6);
+
+
+        &::before {
+            opacity: 1;
+        }
+    }
+}
+
+.noneAccess {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(240, 240, 240, 0.4);
+    cursor: not-allowed;
+    position: relative;
+
+    &::after {
+        content: '🔒';
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.6;
+    }
+
+    &:hover {
+        animation: gentlePulse 2s infinite;
+    }
+}
+
+@keyframes gentlePulse {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes clickBounce {
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(0.95);
+    }
+
+    60% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.hasAccess:active {
+    animation: clickBounce 0.4s ease;
+}
